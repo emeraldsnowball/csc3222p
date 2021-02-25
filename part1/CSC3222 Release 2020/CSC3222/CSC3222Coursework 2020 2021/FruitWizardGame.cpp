@@ -79,6 +79,12 @@ void FruitWizardGame::Update(float dt) {
 	renderer->DrawBox(player->GetPosition(), Vector2(8, 8), Vector4(1, 0, 0, 1));
 
 	renderer->Render();
+
+	// tutorial 1 
+
+	player->SetPosition(player->GetPosition() + Vector3(1,0,0) * 50 *dt );
+
+
 }
 
 void FruitWizardGame::InitialiseGame() {
