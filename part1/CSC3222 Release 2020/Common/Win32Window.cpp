@@ -341,7 +341,7 @@ void	Win32Window::ShowOSPointer(bool show)	{
 void	Win32Window::SetConsolePosition(int x, int y)	{
 	HWND consoleWindow = GetConsoleWindow();
 
-	SetWindowPos(consoleWindow, 0, x, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
+	SetWindowPos(consoleWindow, 0, x + 500, y, 0, 0, SWP_NOSIZE | SWP_NOZORDER);
 
 	SetActiveWindow(windowHandle);
 }

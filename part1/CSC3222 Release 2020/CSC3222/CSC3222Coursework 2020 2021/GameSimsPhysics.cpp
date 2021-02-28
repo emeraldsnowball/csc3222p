@@ -47,6 +47,9 @@ void GameSimsPhysics::RemoveCollider(CollisionVolume* c) {
 
 void GameSimsPhysics::Integration(float dt) {
 
+	for (auto i = allBodies.begin(); i != allBodies.end(); ) {
+		i.SetVelocity();
+	}
 }
 
 void GameSimsPhysics::CollisionDetection(float dt) {
