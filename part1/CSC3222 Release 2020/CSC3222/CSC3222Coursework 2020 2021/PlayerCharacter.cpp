@@ -89,14 +89,14 @@ bool PlayerCharacter::UpdateObject(float dt) {
 			animSource = runFrames;
 			currentAnimState = PlayerState::Left;
 			//newVelocity.x = -testSpeed * dt;
-			AddForce(Vector2(-1000, 0));
+			AddForce(Vector2(-1200, 0));
 			flipAnimFrame = true;
 		}
 		if (Window::GetKeyboard()->KeyDown(KeyboardKeys::RIGHT)) {
 			animSource = runFrames;
 			currentAnimState = PlayerState::Right;
 			//newVelocity.x = testSpeed * dt;
-			AddForce(Vector2(1000, 0));
+			AddForce(Vector2(1200, 0));
 			flipAnimFrame = false;
 		}	
 		if (Window::GetKeyboard()->KeyPressed(KeyboardKeys::SPACE)) {

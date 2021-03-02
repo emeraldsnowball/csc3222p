@@ -17,9 +17,10 @@ GameSimsPhysics::~GameSimsPhysics()	{
 void GameSimsPhysics::Update(float dt) {
 	Integration(dt);
 	CollisionDetection(dt);
-
-	for (auto it : allBodies) {
-		it->force = Vector2(0, 0);
+	IntegrateVelocity(dt);
+	
+	for (int i = 0; i < allBodies.size(); i++) {
+		allBodies[i]->force = Vector2(0, 0);
 	}
 }
 
@@ -54,10 +55,16 @@ void GameSimsPhysics::Integration(float dt) {
 	for (int i = 0; i < allBodies.size(); i++) {
 		Vector2 accelleration = allBodies[i]->force * allBodies[i]->inverseMass;
 		allBodies[i]->velocity += accelleration * dt;
-		allBodies[i]->velocity *= 0.999f;
-		allBodies[i]->position += allBodies[i]->velocity * dt;
+		allBodies[i]->velocity *= 0.94f;
+		//allBodies[i]->position += allBodies[i]->velocity * dt;
 	}
 
+}
+
+void GameSimsPhysics::IntegrateVelocity(float dt) {
+	for (int i = 0; i < allBodies.size(); i++) {
+		allBodies[i]->position += allBodies[i]->velocity * dt;
+	}
 }
 
 void GameSimsPhysics::CollisionDetection(float dt) {

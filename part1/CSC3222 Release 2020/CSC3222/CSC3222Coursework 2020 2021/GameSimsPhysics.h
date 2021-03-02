@@ -23,6 +23,7 @@ namespace NCL {
 		protected:
 			void Integration(float dt);
 			void CollisionDetection(float dt);
+			void IntegrateVelocity(float dt);
 
 			std::vector<RigidBody*>			allBodies;
 			std::vector<CollisionVolume*>	allColliders;
