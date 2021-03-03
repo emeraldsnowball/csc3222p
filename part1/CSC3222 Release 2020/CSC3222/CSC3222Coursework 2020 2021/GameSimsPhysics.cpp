@@ -15,12 +15,20 @@ GameSimsPhysics::~GameSimsPhysics()	{
 }
 
 void GameSimsPhysics::Update(float dt) {
-	Integration(dt);
-	CollisionDetection(dt);
-	IntegrateVelocity(dt);
-	
-	for (int i = 0; i < allBodies.size(); i++) {
-		allBodies[i]->force = Vector2(0, 0);
+	timeRemaining += dt;
+	const float subTimeDelta = 1.0 / 120;
+
+	while (timeRemaining > subTimeDelta) {
+
+		Integration(subTimeDelta);
+		CollisionDetection(subTimeDelta);
+		IntegrateVelocity(subTimeDelta);
+
+		for (int i = 0; i < allBodies.size(); i++) {
+			allBodies[i]->force = Vector2(0, 0);
+		}
+
+		timeRemaining -= subTimeDelta;
 	}
 }
 
