@@ -154,6 +154,7 @@
     <ClCompile Include="GameMap.cpp" />
     <ClCompile Include="GameSimsPhysics.cpp" />
     <ClCompile Include="GameSimsRenderer.cpp" />
+    <ClCompile Include="ShapesCollider.cpp" />
     <ClCompile Include="Spell.cpp" />
     <ClCompile Include="PlayerCharacter.cpp" />
     <ClCompile Include="RigidBody.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ShapesCollider.h" />
     <ClInclude Include="Froggo.h" />
     <ClInclude Include="Guard.h" />
     <ClInclude Include="Pixie.h" />
