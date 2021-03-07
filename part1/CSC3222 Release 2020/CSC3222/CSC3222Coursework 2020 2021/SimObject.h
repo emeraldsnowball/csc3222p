@@ -3,6 +3,9 @@
 #include "../../Common/Vector4.h"
 #include "RigidBody.h"
 
+#include "CollisionVolume.h"
+#include "ShapesCollider.h"
+
 namespace NCL {
 	using namespace Maths;
 

@@ -70,13 +70,17 @@ void FruitWizardGame::Update(float dt) {
 	/*
 	Some examples of debug rendering! 
 	These all use coordinates in the same 'space' as the game positions
-	*/
+	
 	renderer->DrawBox(Vector2(16,16), Vector2(8, 8), Vector4(1, 0, 0, 1));
 	renderer->DrawLine(Vector2(16, 16), Vector2(192, 192), Vector4(1, 1, 0, 1));
 	renderer->DrawCircle(Vector2(100, 100), 10.0f, Vector4(1, 0, 1, 1));
 
 	renderer->DrawCircle(player->GetPosition(), 10.0f, Vector4(1, 0, 1, 1));
 	renderer->DrawBox(player->GetPosition(), Vector2(8, 8), Vector4(1, 0, 0, 1));
+	*/
+
+	//collider drawing
+	renderer->DrawCircle(player->GetCollider()->GetPosition(), 12.0f, Vector4(1, 1, 1, 1));
 
 	renderer->Render();
 
