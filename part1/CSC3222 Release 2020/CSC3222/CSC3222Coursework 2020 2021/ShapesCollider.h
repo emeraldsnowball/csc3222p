@@ -12,7 +12,7 @@ namespace NCL {
             ~CircleCollider();
 
             // Implement pure virtual functions from base
-            bool overlaps(const std::shared_ptr<CollisionVolume>&) const override;
+            bool overlaps(const CollisionVolume&) const override;
             
             // Return the radius of the circle
             float radius() const;
@@ -30,7 +30,7 @@ namespace NCL {
             ~RectangleCollider();
 
             // Implement pure virtual functions from base
-            bool overlaps(const std::shared_ptr<CollisionVolume>&) const override;
+            bool overlaps(const CollisionVolume&) const override;
 
             // Return size of the square
             float length() const;
@@ -55,7 +55,7 @@ namespace NCL {
             static bool collides(const CircleCollider&, const RectangleCollider&);
 
             // Helper method to limit a value p to within min and max range
-            static double clamp(double p, double min, double max);
+            static float clamp(float p, float min, float max);
 
         };
 

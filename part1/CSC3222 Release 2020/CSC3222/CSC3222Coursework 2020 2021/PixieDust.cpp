@@ -15,6 +15,10 @@ Vector4 animFrames[] = {
 PixieDust::PixieDust() : SimObject() {
 	animFrameCount = 4;
 	texture = texManager->GetTexture("FruitWizard\\mini_fantasy_sprites_oga_ver.png");
+
+	collider = new CircleCollider(CollisionVolume::objectType::PIXIEDUST, 12.0f);
+	SetCollider(collider);
+	collider->SetPosition(position);
 }
 
 PixieDust::~PixieDust() {
@@ -23,5 +27,6 @@ PixieDust::~PixieDust() {
 bool PixieDust::UpdateObject(float dt) {
 	animFrameData = animFrames[currentanimFrame];
 
+	collider->SetPosition(position);
 	return true;
 }

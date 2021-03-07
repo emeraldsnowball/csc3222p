@@ -80,7 +80,7 @@ namespace NCL {
         }
 
         // Clamp function to restrict value to given range
-        double CollisionManager::clamp(double p, const double min, const double max)
+        float CollisionManager::clamp(float p, const float min, const float max)
         {
             if (p < min) p = min;
             else if (p > max) p = max;
@@ -90,17 +90,28 @@ namespace NCL {
         CircleCollider::CircleCollider(objectType type, float radius) {
             this->SetType(type);
             this->radius_ = radius;
+            this->shape = 'c';
         }
 
         CircleCollider::CircleCollider(const CircleCollider& copy) {
             this->SetType(copy.GetType());
             radius_ = copy.radius_;
+            this->shape = 'c';
         }
 
         CircleCollider:: ~CircleCollider() = default;
 
-        bool CircleCollider::overlaps(const std::shared_ptr<CollisionVolume>& rhs) const{
-            return CollisionManager::collides(*this, rhs);
+        bool CircleCollider::overlaps(const CollisionVolume& rhs) const{
+            if (rhs.shape == 'c') {
+                const CircleCollider* c = dynamic_cast<const CircleCollider*>(&rhs);
+                return CollisionManager::collides(*this, *c);
+            }
+
+            else if (rhs.shape == 'r') {
+                const RectangleCollider* r = dynamic_cast<const RectangleCollider*>(&rhs);
+                return CollisionManager::collides(*this, *r);
+            }
+            
         }
 
         float CircleCollider::radius() const{
@@ -111,18 +122,28 @@ namespace NCL {
             this->SetType(type);
             this->length_ = length;
             this->width_ = width;
+            this->shape = 'r';
         }
 
         RectangleCollider::RectangleCollider(const RectangleCollider& copy) {
             this->SetType(copy.GetType());
             this->length_ = copy.length_;
             this->width_ = copy.width_;
+            this->shape = 'r';
         }
 
         RectangleCollider::~RectangleCollider() = default;
 
-        bool RectangleCollider::overlaps(const std::shared_ptr<CollisionVolume>& rhs) const {
-            return CollisionManager::collides(*this, rhs);
+        bool RectangleCollider::overlaps(const CollisionVolume& rhs) const {
+            if (rhs.shape == 'c') {
+                const CircleCollider* c = dynamic_cast<const CircleCollider*>(&rhs);
+                return CollisionManager::collides(*c, *this);
+            }
+
+            else if (rhs.shape == 'r') {
+                const RectangleCollider* r = dynamic_cast<const RectangleCollider*>(&rhs);
+                return CollisionManager::collides(*this, *r);
+            }
         }
 
         float RectangleCollider::length() const {

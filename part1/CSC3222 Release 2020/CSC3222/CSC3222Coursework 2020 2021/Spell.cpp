@@ -32,6 +32,10 @@ Spell::Spell(Vector2 direction) : SimObject()	{
 	texture		= texManager->GetTexture("FruitWizard\\mini_fantasy_sprites_oga_ver.png");
 	velocity	= direction;
 	animFrameCount = 6;
+
+	collider = new CircleCollider(CollisionVolume::objectType::SPELL, 12.0f);
+	SetCollider(collider);
+	collider->SetPosition(position);
 }
 
 Spell::~Spell()	{
@@ -46,5 +50,7 @@ void Spell::DrawObject(GameSimsRenderer &r) {
 
 bool Spell::UpdateObject(float dt) {
 	animFrameData = explodeFrames[currentanimFrame];
+
+	collider->SetPosition(position);
 	return true;
 }

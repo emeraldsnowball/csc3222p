@@ -21,7 +21,7 @@ void GameSimsPhysics::Update(float dt) {
 	while (timeRemaining > subTimeDelta) {
 
 		Integration(subTimeDelta);
-		//CollisionDetection(subTimeDelta);
+		CollisionDetection(subTimeDelta);
 		IntegrateVelocity(subTimeDelta);
 
 		for (int i = 0; i < allBodies.size(); i++) {
@@ -80,6 +80,17 @@ void GameSimsPhysics::CollisionDetection(float dt) {
 	for (int i = 0; i < allColliders.size() - 1; ++i) {
 		for (int j = i + 1; j < allColliders.size(); ++j) {
 
+			if (allColliders[i]->GetPosition() == Vector2(0, 0)) {
+				continue;
+			}
+
+			if (allColliders[i]->overlaps(*allColliders[j])) {
+				std::cout << "collision detected between: "
+					<< ((allColliders[i]->shape == 'c') ? "circle " : "rectangle ")
+					<< i << " & " 
+					<< ((allColliders[i]->shape == 'c') ? " circle " : " rectangle ")
+					<< j << "\n";
+			}
 		}
 	}
 

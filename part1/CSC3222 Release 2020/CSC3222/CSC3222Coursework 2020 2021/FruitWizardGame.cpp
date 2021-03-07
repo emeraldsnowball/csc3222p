@@ -55,6 +55,17 @@ void FruitWizardGame::Update(float dt) {
 		}
 		else {
 			(*i)->DrawObject(*renderer);
+
+			CollisionVolume* collider = (*i)->GetCollider();
+			if (collider) {
+				if (collider->shape == 'c') {
+					renderer->DrawCircle(collider->GetPosition(), 12.0f, Vector4(1, 1, 1, 1));
+					
+				}
+				else if (collider->shape == 'r') {
+					renderer->DrawBox(collider->GetPosition(), Vector2(10, 14), Vector4(1, 1, 1, 1));
+				}
+			}
 			++i;
 		}
 	}	
@@ -80,7 +91,7 @@ void FruitWizardGame::Update(float dt) {
 	*/
 
 	//collider drawing
-	renderer->DrawCircle(player->GetCollider()->GetPosition(), 12.0f, Vector4(1, 1, 1, 1));
+	//renderer->DrawCircle(player->GetCollider()->GetPosition(), 12.0f, Vector4(1, 1, 1, 1));
 
 	renderer->Render();
 

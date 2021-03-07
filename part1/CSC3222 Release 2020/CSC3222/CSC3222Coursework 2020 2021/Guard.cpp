@@ -44,6 +44,10 @@ Vector4 guardStunFrames[] = {
 Guard::Guard() : SimObject() {
 	texture = texManager->GetTexture("FruitWizard\\mini_fantasy_sprites_oga_ver.png");
 	animFrameCount	= 6;
+
+	collider = new RectangleCollider(CollisionVolume::objectType::GUARD, 10.0f, 10.0f);
+	SetCollider(collider);
+	collider->SetPosition(position);
 }
 
 Guard::~Guard() {
@@ -52,5 +56,6 @@ Guard::~Guard() {
 bool Guard::UpdateObject(float dt) {
 	animFrameData = guardWalkFrames[currentanimFrame];
 
+	collider->SetPosition(position);
 	return true;
 }

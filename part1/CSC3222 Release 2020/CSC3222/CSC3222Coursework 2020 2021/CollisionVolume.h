@@ -36,8 +36,9 @@ namespace NCL {
 				type = newtype;
 			};
 
-			virtual bool overlaps(const std::shared_ptr<CollisionVolume>&) const = 0;
+			virtual bool overlaps(const CollisionVolume&) const = 0;
 
+			char shape; // just to help draw debug shapes
 		protected:
 			objectType type;
 			Vector2 position;

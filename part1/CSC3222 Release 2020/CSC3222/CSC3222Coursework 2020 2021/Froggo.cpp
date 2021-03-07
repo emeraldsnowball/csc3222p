@@ -62,6 +62,10 @@ Vector4 froggoJumpFrames[] = {
 Froggo::Froggo() : SimObject() {
 	texture			 = texManager->GetTexture("FruitWizard\\frogman_crown.png");
 	animFrameCount	 = 6;
+
+	collider = new RectangleCollider(CollisionVolume::objectType::FROGGO, 10.0f, 8.0f);
+	SetCollider(collider);
+	collider->SetPosition(position);
 }
 
 Froggo::~Froggo() {
@@ -70,5 +74,7 @@ Froggo::~Froggo() {
 bool Froggo::UpdateObject(float dt) {
 	animFrameData = froggoWalkFrames[currentanimFrame];
 
+
+	collider->SetPosition(position);
 	return true;
 }

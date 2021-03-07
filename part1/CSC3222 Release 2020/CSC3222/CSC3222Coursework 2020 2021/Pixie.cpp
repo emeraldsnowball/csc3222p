@@ -15,6 +15,10 @@ Vector4 pixieFrames[] = {
 Pixie::Pixie() : SimObject() {
 	texture			= texManager->GetTexture("FruitWizard\\super_random_sprites.png");
 	animFrameCount	= 4;
+
+	collider = new CircleCollider(CollisionVolume::objectType::PIXIE, 12.0f);
+	SetCollider(collider);
+	collider->SetPosition(position);
 }
 
 Pixie::~Pixie() {
@@ -22,5 +26,7 @@ Pixie::~Pixie() {
 
 bool Pixie::UpdateObject(float dt) {
 	animFrameData = pixieFrames[currentanimFrame];
+
+	collider->SetPosition(position);
 	return true;
 }
