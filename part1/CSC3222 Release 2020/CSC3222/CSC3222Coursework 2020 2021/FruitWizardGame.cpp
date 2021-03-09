@@ -59,11 +59,14 @@ void FruitWizardGame::Update(float dt) {
 			CollisionVolume* collider = (*i)->GetCollider();
 			if (collider) {
 				if (collider->shape == 'c') {
-					renderer->DrawCircle(collider->GetPosition(), 12.0f, Vector4(1, 1, 1, 1));
+					const CircleCollider* c = dynamic_cast<const CircleCollider*> (collider);
+
+					renderer->DrawCircle(collider->GetPosition(), c->radius(), Vector4(1, 1, 1, 1));
 					
 				}
 				else if (collider->shape == 'r') {
-					renderer->DrawBox(collider->GetPosition(), Vector2(10, 14), Vector4(1, 1, 1, 1));
+					const RectangleCollider* r = dynamic_cast<const RectangleCollider*> (collider);
+					renderer->DrawBox(collider->GetPosition(), Vector2(r->length(), r->width()), Vector4(1, 1, 1, 1));
 				}
 			}
 			++i;

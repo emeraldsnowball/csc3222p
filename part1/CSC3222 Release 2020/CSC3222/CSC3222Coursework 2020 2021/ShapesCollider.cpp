@@ -43,12 +43,6 @@ namespace NCL {
         bool CollisionManager::collides(const RectangleCollider& lhs, const RectangleCollider& rhs)
         {
             // If either corner clears the other, there's no collision
-            /*return !(
-                lhs.GetPosition().x + lhs.size() < rhs.GetPosition().x ||
-                lhs.GetPosition().x > rhs.GetPosition().x + rhs.size() ||
-                lhs.GetPosition().y + lhs.size() < rhs.GetPosition().y ||
-                lhs.GetPosition().y > rhs.GetPosition().y + rhs.size()
-                );*/
             return(
                 lhs.GetPosition().x < rhs.GetPosition().x + rhs.width() &&
                 lhs.GetPosition().x + lhs.width() > rhs.GetPosition().x &&
