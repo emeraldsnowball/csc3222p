@@ -96,6 +96,13 @@ void FruitWizardGame::Update(float dt) {
 	renderer->DrawBox(Vector2(72, 72 + 128 + 64), Vector2(56, 8), Vector4(1, 0, 0, 1));
 	//ladders
 	renderer->DrawBox(Vector2(112, 48), Vector2(10, 32), Vector4(1, 0.5, 0, 1));
+	renderer->DrawBox(Vector2(256, 48), Vector2(10, 32), Vector4(1, 0.5, 0, 1));
+	renderer->DrawBox(Vector2(32, 48+96), Vector2(10, 32*2), Vector4(1, 0.5, 0, 1));
+	renderer->DrawBox(Vector2(368, 48+64), Vector2(10, 32), Vector4(1, 0.5, 0, 1));
+	renderer->DrawBox(Vector2(192, 48 + 64 + 64), Vector2(10, 32), Vector4(1, 0.5, 0, 1));
+	renderer->DrawBox(Vector2(304, 48 + 64 + 64), Vector2(10, 32), Vector4(1, 0.5, 0, 1));
+	renderer->DrawBox(Vector2(432, 48 + 64 + 96), Vector2(10, 32 * 2), Vector4(1, 0.5, 0, 1));
+	renderer->DrawBox(Vector2(96, 48 + 64 + 64 + 64), Vector2(10, 32), Vector4(1, 0.5, 0, 1));
 
 	/*
 	Some examples of debug rendering! 
