@@ -6,6 +6,7 @@
 #include "../../Common/Vector3.h"
 #include "../../Common/Vector4.h"
 #include "../../Common/MeshGeometry.h"
+#include "GameSimsPhysics.h"
 
 namespace NCL {
 	namespace Rendering {
@@ -19,7 +20,7 @@ namespace NCL {
 
 		class GameMap	{
 		public:
-			GameMap(const std::string& filename, std::vector<SimObject*>& objects, TextureManager& texManager);
+			GameMap(const std::string& filename, std::vector<SimObject*>& objects, TextureManager& texManager, GameSimsPhysics* physics);
 			~GameMap();
 
 			void DrawMap(GameSimsRenderer & r);

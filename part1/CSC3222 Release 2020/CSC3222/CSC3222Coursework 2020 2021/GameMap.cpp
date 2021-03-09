@@ -6,12 +6,14 @@
 #include "../../Common/TextureLoader.h"
 #include <fstream>
 #include <iostream>
+#include "CollisionVolume.h"
+#include "SimObject.h"
 
 using namespace NCL;
 using namespace CSC3222;
 using namespace Rendering;
 
-GameMap::GameMap(const std::string& filename, std::vector<SimObject*>& objects, TextureManager& texManager)	{
+GameMap::GameMap(const std::string& filename, std::vector<SimObject*>& objects, TextureManager& texManager, GameSimsPhysics* physics)	{
 	tileTexture = texManager.GetTexture("FruitWizard//arcade_platformerV2.png");
 
 	std::ifstream mapFile(Assets::DATADIR + filename);
@@ -43,6 +45,10 @@ GameMap::GameMap(const std::string& filename, std::vector<SimObject*>& objects, 
 		}
 	}
 
+	//CollisionVolume* leftWall = new RectangleCollider(CollisionVolume::objectType::WALL, 16.0f, 21*16.0f);
+	//leftWall->SetPosition(Vector2(100,0));
+
+	//physics->AddCollider(leftWall);
 	BuildMapMesh();
 }
 

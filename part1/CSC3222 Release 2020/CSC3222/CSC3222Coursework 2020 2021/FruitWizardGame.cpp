@@ -81,6 +81,22 @@ void FruitWizardGame::Update(float dt) {
 	renderer->DrawString("Dust:"  + std::to_string(dustCount), 
 		Vector2(366, 12), Vector4(0.5f, 0.3f, 0.8f, 1), 100.0f);
 
+	// draw game map colliders 
+	// wall
+	renderer->DrawBox(Vector2(8, 160), Vector2(8.0f, 160), Vector4(1,0,0,1));
+	renderer->DrawBox(Vector2(472, 160), Vector2(8.0f, 160), Vector4(1, 0, 0, 1));
+	//ground
+	renderer->DrawBox(Vector2(240, 8), Vector2(240, 8), Vector4(1, 0, 0, 1));
+	renderer->DrawBox(Vector2(80, 72), Vector2(64, 8), Vector4(1, 0, 0, 1));
+	renderer->DrawBox(Vector2(320, 72), Vector2(144, 8), Vector4(1, 0, 0, 1));
+	renderer->DrawBox(Vector2(320, 72 + 64), Vector2(144, 8), Vector4(1, 0, 0, 1));
+	renderer->DrawBox(Vector2(112, 72 + 128), Vector2(112, 8), Vector4(1, 0, 0, 1));
+	renderer->DrawBox(Vector2(320, 72 + 128), Vector2(48, 8), Vector4(1, 0, 0, 1));
+	renderer->DrawBox(Vector2(320 + 16, 72 + 128 + 64), Vector2(128, 8), Vector4(1, 0, 0, 1));
+	renderer->DrawBox(Vector2(72, 72 + 128 + 64), Vector2(56, 8), Vector4(1, 0, 0, 1));
+	//ladders
+	renderer->DrawBox(Vector2(112, 48), Vector2(10, 32), Vector4(1, 0.5, 0, 1));
+
 	/*
 	Some examples of debug rendering! 
 	These all use coordinates in the same 'space' as the game positions
@@ -112,7 +128,7 @@ void FruitWizardGame::InitialiseGame() {
 	}
 	gameObjects.clear();
 
-	currentMap = new GameMap("FruitWizardMap.txt", gameObjects, *texManager);
+	currentMap = new GameMap("FruitWizardMap.txt", gameObjects, *texManager, physics);
 
 	renderer->SetScreenProperties(16, currentMap->GetMapWidth(), currentMap->GetMapHeight());
 

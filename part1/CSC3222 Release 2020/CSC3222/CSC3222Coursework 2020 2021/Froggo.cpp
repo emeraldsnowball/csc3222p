@@ -63,9 +63,9 @@ Froggo::Froggo() : SimObject() {
 	texture			 = texManager->GetTexture("FruitWizard\\frogman_crown.png");
 	animFrameCount	 = 6;
 
-	collider = new RectangleCollider(CollisionVolume::objectType::FROGGO, 10.0f, 8.0f);
+	collider = new RectangleCollider(CollisionVolume::objectType::FROGGO, 12.0f, 16.0f);
 	SetCollider(collider);
-	collider->SetPosition(position);
+	collider->SetPosition(position + Vector2(2,8));
 }
 
 Froggo::~Froggo() {
@@ -75,6 +75,6 @@ bool Froggo::UpdateObject(float dt) {
 	animFrameData = froggoWalkFrames[currentanimFrame];
 
 
-	collider->SetPosition(position);
+	collider->SetPosition(position + Vector2(2, 8));
 	return true;
 }

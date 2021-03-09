@@ -10,7 +10,6 @@ Fruit::Fruit() : SimObject() {
 
 	int fruitID = rand() % 16;
 
-	animFrameData = Vector4((fruitID / 4) * 16.0f, (fruitID % 4) * 16.0f, 16.0f, 16.0f);
 }
 
 Fruit::~Fruit() {
