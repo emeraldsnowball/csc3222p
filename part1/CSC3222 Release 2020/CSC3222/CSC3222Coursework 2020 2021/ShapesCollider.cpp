@@ -42,14 +42,16 @@ namespace NCL {
         // Calculate a square-square collision
         bool CollisionManager::collides(const RectangleCollider& lhs, const RectangleCollider& rhs)
         {
-            // If either corner clears the other, there's no collision
-            return(
-                lhs.GetPosition().x < rhs.GetPosition().x + rhs.width() &&
-                lhs.GetPosition().x + lhs.width() > rhs.GetPosition().x &&
-                lhs.GetPosition().y < rhs.GetPosition().y + rhs.width() &&
-                lhs.GetPosition().y + lhs.width() > rhs.GetPosition().y
-                );
+            Vector2 posA = lhs.GetPosition();
+            Vector2 posB = rhs.GetPosition();
+            Vector2 delta = posB - posA;
+            Vector2 totalSize = Vector2(lhs.length() / 2, lhs.width() / 2) + Vector2(rhs.length() / 2, rhs.width() / 2);
 
+            if (fabs(delta.x) < totalSize.x && fabs(delta.y) < totalSize.y) {
+                return true;
+            }
+
+            return false;
         }
 
         // Calculate a circle-circle collision
@@ -64,13 +66,20 @@ namespace NCL {
         bool CollisionManager::collides(const CircleCollider& lhs, const RectangleCollider& rhs)
         {
             // Find closest point on square to the circle
-            double closest_x = clamp(lhs.GetPosition().x, rhs.GetPosition().x, rhs.GetPosition().x + rhs.length());
-            double closest_y = clamp(lhs.GetPosition().y, rhs.GetPosition().y, rhs.GetPosition().y + rhs.width());
+            double closest_x = clamp(lhs.GetPosition().x, rhs.GetPosition().x - rhs.length() / 2, rhs.GetPosition().x + rhs.length()/2);
+            double closest_y = clamp(lhs.GetPosition().y, rhs.GetPosition().y - rhs.width() / 2, rhs.GetPosition().y + rhs.width()/2);
+            Vector2 closestPoint(closest_x, closest_y);
+
+            float distance = fabs((closestPoint - lhs.GetPosition()).Length());
+
+            return (distance < lhs.radius());
 
             // See if the point is closer than radius distance from the circle center
             // Use squared values to avoid slower sqrt calculations
+           /*
             return pow(lhs.GetPosition().x - closest_x, 2) + pow(lhs.GetPosition().y - closest_y, 2)
                 <= pow(lhs.radius(), 2);
+                */
         }
 
         // Clamp function to restrict value to given range

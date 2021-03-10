@@ -49,6 +49,7 @@ GameMap::GameMap(const std::string& filename, std::vector<SimObject*>& objects, 
 	//leftWall->SetPosition(Vector2(100,0));
 
 	//physics->AddCollider(leftWall);
+	AddMapColliders(physics);
 	BuildMapMesh();
 }
 
@@ -59,6 +60,63 @@ GameMap::~GameMap()	{
 
 	delete mapMesh;
 }
+
+void GameMap::AddMapColliders(GameSimsPhysics* physics) {
+	// walls 
+	CollisionVolume* leftWall = new RectangleCollider(CollisionVolume::objectType::WALL, 16, 304);
+	leftWall->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	leftWall->SetPosition(Vector2(8, 160));
+	physics->AddCollider(leftWall);
+
+	CollisionVolume* rightWall = new RectangleCollider(CollisionVolume::objectType::WALL, 16, 304);
+	rightWall->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	rightWall->SetPosition(Vector2(472, 160));
+	physics->AddCollider(rightWall);
+
+	//ground / platforms
+
+	CollisionVolume* ground = new RectangleCollider(CollisionVolume::objectType::GROUND, 240*2, 8*2);
+	ground->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	ground->SetPosition(Vector2(240, 8));
+	physics->AddCollider(ground);
+
+	CollisionVolume* platform1a = new RectangleCollider(CollisionVolume::objectType::GROUND, 64 * 2, 8 * 2);
+	platform1a->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	platform1a->SetPosition(Vector2(80, 72));
+	physics->AddCollider(platform1a);
+
+	CollisionVolume* platform1b = new RectangleCollider(CollisionVolume::objectType::GROUND, 144 * 2, 8 * 2);
+	platform1b->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	platform1b->SetPosition(Vector2(320, 72));
+	physics->AddCollider(platform1b);
+
+	CollisionVolume* platform2 = new RectangleCollider(CollisionVolume::objectType::GROUND, 144 * 2, 8 * 2);
+	platform2->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	platform2->SetPosition(Vector2(320, 72 + 64));
+	physics->AddCollider(platform2);
+
+	CollisionVolume* platform3a = new RectangleCollider(CollisionVolume::objectType::GROUND, 112 * 2, 8 * 2);
+	platform3a->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	platform3a->SetPosition(Vector2(320, 72 + 64 + 64));
+	physics->AddCollider(platform3a);
+
+	CollisionVolume* platform3b = new RectangleCollider(CollisionVolume::objectType::GROUND, 48 * 2, 8 * 2);
+	platform3b->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	platform3b->SetPosition(Vector2(320, 72 + 64 + 64));
+	//physics->AddCollider(platform3b);
+
+	CollisionVolume* platform4a = new RectangleCollider(CollisionVolume::objectType::GROUND, 128 * 2, 8 * 2);
+	platform4a->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	platform4a->SetPosition(Vector2(320, 72 + 64 + 64 + 64));
+	//physics->AddCollider(platform4a);
+
+	CollisionVolume* platform4b = new RectangleCollider(CollisionVolume::objectType::GROUND, 56 * 2, 8 * 2);
+	platform4b->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	platform4b->SetPosition(Vector2(320, 72 + 64 + 64 + 64));
+	//physics->AddCollider(platform4b);
+
+}
+
 
 void GameMap::DrawMap(GameSimsRenderer & r) {
 	r.DrawMesh((OGLMesh*)mapMesh, (OGLTexture*)tileTexture);

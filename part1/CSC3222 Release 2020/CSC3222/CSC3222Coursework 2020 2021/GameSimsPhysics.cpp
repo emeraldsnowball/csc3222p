@@ -80,16 +80,96 @@ void GameSimsPhysics::CollisionDetection(float dt) {
 	for (int i = 0; i < allColliders.size() - 1; ++i) {
 		for (int j = i + 1; j < allColliders.size(); ++j) {
 
-			if (allColliders[i]->GetPosition() == Vector2(0, 0)) {
+			if (allColliders[i]->GetPosition() == Vector2(0, 0) || allColliders[j]->GetPosition() == Vector2(0, 0)) {
+				continue;
+			}
+
+			if (allColliders[i]->GetBehaviour() == CollisionVolume::behaviour::STATIC && allColliders[j]->GetBehaviour() == CollisionVolume::behaviour::STATIC) {
 				continue;
 			}
 
 			if (allColliders[i]->overlaps(*allColliders[j])) {
+				/*
 				std::cout << "collision detected between: "
 					<< ((allColliders[i]->shape == 'c') ? "circle " : "rectangle ")
 					<< i << " & " 
-					<< ((allColliders[i]->shape == 'c') ? " circle " : " rectangle ")
+					<< ((allColliders[j]->shape == 'c') ? " circle " : " rectangle ")
 					<< j << "\n";
+				*/
+				std::cout << "collision detected between: ";
+
+				switch (allColliders[i]->GetType())
+				{
+				case CollisionVolume::objectType::PLAYER:
+					std::cout << "PLAYER ";
+					break;
+				case CollisionVolume::objectType::SPELL:
+					std::cout << "SPELL ";
+					break;
+				case CollisionVolume::objectType::PIXIE:
+					std::cout << "PIXIE ";
+					break;
+				case CollisionVolume::objectType::PIXIEDUST:
+					std::cout << "PIXIEDUST ";
+					break;
+				case CollisionVolume::objectType::GUARD:
+					std::cout << "GUARD ";
+					break;
+				case CollisionVolume::objectType::FROGGO:
+					std::cout << "FROGGO ";
+					break;
+				case CollisionVolume::objectType::FRUIT:
+					std::cout << "FRUIT ";
+					break;
+				case CollisionVolume::objectType::LADDER:
+					std::cout << "LADDER ";
+					break;
+				case CollisionVolume::objectType::WALL:
+					std::cout << "WALL ";
+					break;
+				case CollisionVolume::objectType::GROUND:
+					std::cout << "GROUND ";
+					break;
+				}
+
+				std::cout << " & ";
+
+				switch (allColliders[j]->GetType())
+				{
+				case CollisionVolume::objectType::PLAYER:
+					std::cout << "PLAYER ";
+					break;
+				case CollisionVolume::objectType::SPELL:
+					std::cout << "SPELL ";
+					break;
+				case CollisionVolume::objectType::PIXIE:
+					std::cout << "PIXIE ";
+					break;
+				case CollisionVolume::objectType::PIXIEDUST:
+					std::cout << "PIXIEDUST ";
+					break;
+				case CollisionVolume::objectType::GUARD:
+					std::cout << "GUARD ";
+					break;
+				case CollisionVolume::objectType::FROGGO:
+					std::cout << "FROGGO ";
+					break;
+				case CollisionVolume::objectType::FRUIT:
+					std::cout << "FRUIT ";
+					break;
+				case CollisionVolume::objectType::LADDER:
+					std::cout << "LADDER ";
+					break;
+				case CollisionVolume::objectType::WALL:
+					std::cout << "WALL ";
+					break;
+				case CollisionVolume::objectType::GROUND:
+					std::cout << "GROUND ";
+					break;
+				}
+
+				std::cout << " \n";
+
 			}
 		}
 	}

@@ -66,6 +66,7 @@ PlayerCharacter::PlayerCharacter() : SimObject() {
 	texture				= texManager->GetTexture("FruitWizard\\mini_fantasy_sprites_oga_ver.png");
 	animFrameCount		= 6;
 
+	//collider = new RectangleCollider(CollisionVolume::objectType::PLAYER, 10.0f, 12.0f);
 	collider = new CircleCollider(CollisionVolume::objectType::PLAYER, 12.0f);
 	collider->SetBehaviour(CollisionVolume::behaviour::DYNAMIC);
 	SetCollider(collider);

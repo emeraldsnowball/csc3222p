@@ -55,23 +55,39 @@ void FruitWizardGame::Update(float dt) {
 		}
 		else {
 			(*i)->DrawObject(*renderer);
-
+			/*
 			CollisionVolume* collider = (*i)->GetCollider();
 			if (collider) {
 				if (collider->shape == 'c') {
 					const CircleCollider* c = dynamic_cast<const CircleCollider*> (collider);
 
-					renderer->DrawCircle(collider->GetPosition(), c->radius(), Vector4(1, 1, 1, 1));
+					renderer->DrawCircle(collider->GetPosition(), c->radius(), Vector4(0, 1, 1, 1));
 					
 				}
 				else if (collider->shape == 'r') {
 					const RectangleCollider* r = dynamic_cast<const RectangleCollider*> (collider);
-					renderer->DrawBox(collider->GetPosition(), Vector2(r->length()/2, r->width()/2), Vector4(1, 1, 1, 1));
+					renderer->DrawBox(collider->GetPosition(), Vector2(r->length(), r->width()), Vector4(0, 1, 1, 1));
 				}
 			}
+			*/
 			++i;
 		}
-	}	
+	}
+
+	for (CollisionVolume* collider : physics->GetAllColliders()) {
+		if (collider->shape == 'c') {
+			const CircleCollider* c = dynamic_cast<const CircleCollider*> (collider);
+
+			renderer->DrawCircle(collider->GetPosition(), c->radius(), Vector4(0, 1, 1, 1));
+
+		}
+		else if (collider->shape == 'r') {
+			const RectangleCollider* r = dynamic_cast<const RectangleCollider*> (collider);
+			renderer->DrawBox(collider->GetPosition(), Vector2(r->length()/2, r->width()/2), Vector4(0, 1, 1, 1));
+		}
+	}
+
+
 	renderer->DrawString("Score:" + std::to_string(currentScore), 
 		Vector2(32, 12), Vector4(1,1,1,1), 100.0f);
 	renderer->DrawString("Lives:" + std::to_string(lives), 
@@ -80,6 +96,8 @@ void FruitWizardGame::Update(float dt) {
 		Vector2(256, 12), Vector4(1, 0, 0.5f, 1), 100.0f);
 	renderer->DrawString("Dust:"  + std::to_string(dustCount), 
 		Vector2(366, 12), Vector4(0.5f, 0.3f, 0.8f, 1), 100.0f);
+
+	/*
 
 	// draw game map colliders 
 	// wall
@@ -104,6 +122,8 @@ void FruitWizardGame::Update(float dt) {
 	renderer->DrawBox(Vector2(432, 48 + 64 + 96), Vector2(10, 32 * 2), Vector4(1, 0.5, 0, 1));
 	renderer->DrawBox(Vector2(96, 48 + 64 + 64 + 64), Vector2(10, 32), Vector4(1, 0.5, 0, 1));
 
+
+	*/
 	/*
 	Some examples of debug rendering! 
 	These all use coordinates in the same 'space' as the game positions
@@ -144,7 +164,8 @@ void FruitWizardGame::InitialiseGame() {
 	AddNewObject(player);
 
 	Guard* testGuard = new Guard();
-	testGuard->SetPosition(Vector2(150, 224));
+	//testGuard->SetPosition(Vector2(150, 224));
+	testGuard->SetPosition(Vector2(200, 32));
 	AddNewObject(testGuard);
 
 	Spell* testSpell = new Spell(Vector2(1,0));
@@ -164,7 +185,8 @@ void FruitWizardGame::InitialiseGame() {
 	AddNewObject(pixie);
 
 	Froggo* testFroggo = new Froggo();
-	testFroggo->SetPosition(Vector2(370, 285));
+	//testFroggo->SetPosition(Vector2(370, 285));
+	testFroggo->SetPosition(Vector2(370, 32));
 	AddNewObject(testFroggo);
 
 	gameTime		= 0;

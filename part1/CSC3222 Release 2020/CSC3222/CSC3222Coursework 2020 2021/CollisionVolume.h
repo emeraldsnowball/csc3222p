@@ -24,7 +24,8 @@ namespace NCL {
 				FROGGO,
 				FRUIT,
 				LADDER,
-				WALL
+				WALL,
+				GROUND
 			};
 
 

@@ -34,6 +34,7 @@ namespace NCL {
 			}
 		protected:
 			void BuildMapMesh();
+			void AddMapColliders(GameSimsPhysics* physics);
 			void AddNewTilePos(int x, int y, std::vector<Vector3>& pos, Vector2 tileSize = Vector2(16, 16));
 			void AddNewTileTex(int x, int y, std::vector<Vector2>& tex, Vector2 texSize = Vector2(16,16));
 

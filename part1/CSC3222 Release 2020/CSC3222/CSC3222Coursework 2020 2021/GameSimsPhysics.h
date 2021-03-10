@@ -20,6 +20,10 @@ namespace NCL {
 			void AddCollider(CollisionVolume* c);
 			void RemoveCollider(CollisionVolume* c);
 
+			std::vector<CollisionVolume*> GetAllColliders() {
+				return allColliders;
+			};
+
 		protected:
 			void Integration(float dt);
 			void CollisionDetection(float dt);

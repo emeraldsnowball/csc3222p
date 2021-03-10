@@ -10,10 +10,14 @@ Fruit::Fruit() : SimObject() {
 
 	int fruitID = rand() % 16;
 
-	collider = new CircleCollider(CollisionVolume::objectType::FRUIT, 12.0f);
-	collider->SetBehaviour(CollisionVolume::behaviour::DYNAMIC);
+	animFrameData = Vector4((fruitID / 4) * 16.0f, (fruitID % 4) * 16.0f, 16.0f, 16.0f);
+
+	
+	collider = new CircleCollider(CollisionVolume::objectType::FRUIT, 6.0f);
+	collider->SetBehaviour(CollisionVolume::behaviour::STATIC);
 	SetCollider(collider);
 	collider->SetPosition(position);
+	
 }
 
 Fruit::~Fruit() {
