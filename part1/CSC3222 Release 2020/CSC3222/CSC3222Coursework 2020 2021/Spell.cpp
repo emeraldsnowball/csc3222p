@@ -34,6 +34,7 @@ Spell::Spell(Vector2 direction) : SimObject()	{
 	animFrameCount = 6;
 
 	collider = new CircleCollider(CollisionVolume::objectType::SPELL, 12.0f);
+	collider->SetBehaviour(CollisionVolume::behaviour::DYNAMIC);
 	SetCollider(collider);
 	collider->SetPosition(position);
 }

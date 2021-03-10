@@ -36,10 +36,25 @@ namespace NCL {
 				type = newtype;
 			};
 
+			enum class behaviour {
+				STATIC,
+				DYNAMIC
+			};
+
+			behaviour GetBehaviour() {
+				return behaviour;
+			};
+
+			void SetBehaviour(const behaviour newbehaviour) {
+				behaviour = newbehaviour;
+			};
+
+
 			virtual bool overlaps(const CollisionVolume&) const = 0;
 
 			char shape; // just to help draw debug shapes
 		protected:
+			behaviour behaviour;
 			objectType type;
 			Vector2 position;
 		};

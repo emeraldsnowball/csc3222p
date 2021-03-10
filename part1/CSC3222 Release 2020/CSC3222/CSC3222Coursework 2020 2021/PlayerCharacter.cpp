@@ -67,6 +67,7 @@ PlayerCharacter::PlayerCharacter() : SimObject() {
 	animFrameCount		= 6;
 
 	collider = new CircleCollider(CollisionVolume::objectType::PLAYER, 12.0f);
+	collider->SetBehaviour(CollisionVolume::behaviour::DYNAMIC);
 	SetCollider(collider);
 	collider->SetPosition(position);
 }
