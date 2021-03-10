@@ -45,7 +45,7 @@ Guard::Guard() : SimObject() {
 	texture = texManager->GetTexture("FruitWizard\\mini_fantasy_sprites_oga_ver.png");
 	animFrameCount	= 6;
 
-	collider = new RectangleCollider(CollisionVolume::objectType::GUARD, 10.0f, 12.0f);
+	collider = new RectangleCollider(CollisionVolume::objectType::GUARD, 10.0f * 2, 12.0f * 2);
 	SetCollider(collider);
 	collider->SetPosition(position);
 }

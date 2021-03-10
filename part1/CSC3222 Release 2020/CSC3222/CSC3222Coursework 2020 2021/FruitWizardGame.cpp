@@ -66,7 +66,7 @@ void FruitWizardGame::Update(float dt) {
 				}
 				else if (collider->shape == 'r') {
 					const RectangleCollider* r = dynamic_cast<const RectangleCollider*> (collider);
-					renderer->DrawBox(collider->GetPosition(), Vector2(r->length(), r->width()), Vector4(1, 1, 1, 1));
+					renderer->DrawBox(collider->GetPosition(), Vector2(r->length()/2, r->width()/2), Vector4(1, 1, 1, 1));
 				}
 			}
 			++i;
