@@ -33,10 +33,18 @@ Spell::Spell(Vector2 direction) : SimObject()	{
 	velocity	= direction;
 	animFrameCount = 6;
 
+	timeSpawned = 0;
+
+	this->SetPosition(direction);
+
 	collider = new CircleCollider(CollisionVolume::objectType::SPELL, 12.0f);
 	collider->SetBehaviour(CollisionVolume::behaviour::DYNAMIC);
 	SetCollider(collider);
+
 	collider->SetPosition(position);
+
+	AddImpulse(Vector2(1000, 0));
+
 }
 
 Spell::~Spell()	{
@@ -51,6 +59,12 @@ void Spell::DrawObject(GameSimsRenderer &r) {
 
 bool Spell::UpdateObject(float dt) {
 	animFrameData = explodeFrames[currentanimFrame];
+
+	timeSpawned += dt;
+
+	if (timeSpawned > 1.0f) {
+		return false;
+	}
 
 	collider->SetPosition(position);
 	return true;

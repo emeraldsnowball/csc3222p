@@ -30,6 +30,10 @@ namespace NCL {
 				force += newForce;
 			}
 
+			void AddImpulse(const Vector2& impulse) {
+				velocity += impulse * inverseMass;
+			}
+
 
 		protected:
 			Vector2 position;

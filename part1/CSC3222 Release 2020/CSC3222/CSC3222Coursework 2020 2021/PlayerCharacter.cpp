@@ -2,6 +2,9 @@
 #include "TextureManager.h"
 #include "../../Common/Window.h"
 #include "GameSimsRenderer.h"
+#include "FruitWizardGame.h"
+#include "Spell.h"
+
 
 using namespace NCL;
 using namespace CSC3222;
@@ -105,9 +108,11 @@ bool PlayerCharacter::UpdateObject(float dt) {
 			AddForce(Vector2(1200, 0));
 			flipAnimFrame = false;
 		}	
-		if (Window::GetKeyboard()->KeyPressed(KeyboardKeys::SPACE)) {
+		if (game->magicCount > 0 && Window::GetKeyboard()->KeyPressed(KeyboardKeys::SPACE)) {
 			currentAnimState = PlayerState::Attack;
 			currentanimFrame = 0;
+			game->AddNewObject(new Spell(this->GetPosition()));
+			game->magicCount--;
 		}
 	}
 

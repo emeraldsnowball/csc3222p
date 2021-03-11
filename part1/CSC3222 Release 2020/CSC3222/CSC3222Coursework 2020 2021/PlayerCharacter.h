@@ -1,5 +1,6 @@
 #pragma once
 #include "SimObject.h"
+#include "FruitWizardGame.h"
 
 namespace NCL::CSC3222 {
 	class PlayerCharacter : public SimObject	{

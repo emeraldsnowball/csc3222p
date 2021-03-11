@@ -18,7 +18,7 @@ namespace NCL::CSC3222 {
 		void Update(float dt);
 
 		void AddNewObject(SimObject* object);
-
+		int magicCount;
 	protected:
 		void InitialiseGame();
 
@@ -32,7 +32,7 @@ namespace NCL::CSC3222 {
 		float gameTime;
 
 		int currentScore;
-		int magicCount;
+
 		int dustCount;
 		int lives;
 

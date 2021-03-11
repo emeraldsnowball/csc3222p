@@ -11,6 +11,8 @@ namespace NCL {
 			Spell(Vector2 direction);
 			~Spell();
 
+			float timeSpawned;
+
 			void DrawObject(GameSimsRenderer &r) override;
 			bool UpdateObject(float dt) override;
 		};

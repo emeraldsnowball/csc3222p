@@ -50,6 +50,7 @@ void FruitWizardGame::Update(float dt) {
 	for (auto i = gameObjects.begin(); i != gameObjects.end(); ) {
 		(*i)->UpdateAnimFrame(dt);
 		if (!(*i)->UpdateObject(dt)) { //object has said its finished with
+			physics->RemoveCollider((*i)->GetCollider());
 			delete (*i);
 			 i = gameObjects.erase(i);
 		}
@@ -170,7 +171,7 @@ void FruitWizardGame::InitialiseGame() {
 
 	Spell* testSpell = new Spell(Vector2(1,0));
 	testSpell->SetPosition(Vector2(160, 48));
-	AddNewObject(testSpell);
+	//AddNewObject(testSpell);
 
 	Fruit* testFruit = new Fruit();
 	testFruit->SetPosition(Vector2(250, 150));
@@ -191,7 +192,7 @@ void FruitWizardGame::InitialiseGame() {
 
 	gameTime		= 0;
 	currentScore	= 0;
-	magicCount		= 0;
+	magicCount		= 3;
 	dustCount		= 0;
 	lives			= 3;
 }
