@@ -8,7 +8,7 @@ namespace NCL::CSC3222 {
 		~Guard();
 
 		bool UpdateObject(float dt) override;
-
+	
 	protected:
 	};
 }

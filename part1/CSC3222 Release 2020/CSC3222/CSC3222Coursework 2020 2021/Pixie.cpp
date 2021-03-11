@@ -1,6 +1,7 @@
 #include "Pixie.h"
 #include "TextureManager.h"
 #include "GameSimsRenderer.h"
+#include "FruitWizardGame.h"
 
 using namespace NCL;
 using namespace CSC3222;
@@ -28,6 +29,9 @@ Pixie::~Pixie() {
 bool Pixie::UpdateObject(float dt) {
 	animFrameData = pixieFrames[currentanimFrame];
 
+	UpdateSprings();
 	collider->SetPosition(position);
+
+
 	return true;
 }

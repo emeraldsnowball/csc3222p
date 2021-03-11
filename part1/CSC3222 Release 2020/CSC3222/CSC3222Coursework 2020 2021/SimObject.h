@@ -40,6 +40,9 @@ namespace NCL {
 
 			static void InitObjects(FruitWizardGame* game, TextureManager* manager);
 
+			void SetSpringTarget(RigidBody& obj);
+			void UpdateSprings();
+
 		protected:
 
 			CollisionVolume*		collider;
@@ -52,6 +55,8 @@ namespace NCL {
 			int				animFrameCount;
 			float			frameTime;
 			float			frameRate;
+
+			RigidBody* ptr;
 
 			static TextureManager*  texManager;
 			static FruitWizardGame*		game;

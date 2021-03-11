@@ -44,3 +44,26 @@ void SimObject::DrawObject(GameSimsRenderer& r) {
 
 	r.DrawTextureArea((OGLTexture*)texture, texPos, texSize, position, flipAnimFrame);
 }
+
+void SimObject::SetSpringTarget(RigidBody& obj) {
+	ptr = &obj;
+}
+
+void SimObject::UpdateSprings() {
+	const float c = 1;
+	const float snappiness = 1;
+	
+
+	Vector2 lhs_vel = this->GetVelocity();
+	Vector2 rhs_vel = ptr->GetVelocity();
+
+	Vector2 direction = (this->GetPosition() - ptr->GetPosition()).Normalised();
+	float distance = (this->GetPosition() - ptr->GetPosition()).Length() - 0.5f;
+
+	float force = -snappiness * distance;
+	float relVelocity = Vector2::Dot(rhs_vel - lhs_vel, direction);
+
+	this->AddForce(direction * (force - c * relVelocity));
+
+
+}

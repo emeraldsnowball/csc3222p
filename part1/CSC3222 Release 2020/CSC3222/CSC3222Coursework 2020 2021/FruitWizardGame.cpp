@@ -169,8 +169,8 @@ void FruitWizardGame::InitialiseGame() {
 	testGuard->SetPosition(Vector2(200, 32));
 	AddNewObject(testGuard);
 
-	Spell* testSpell = new Spell(Vector2(1,0));
-	testSpell->SetPosition(Vector2(160, 48));
+	//Spell* testSpell = new Spell(Vector2(1,0));
+	//testSpell->SetPosition(Vector2(160, 48));
 	//AddNewObject(testSpell);
 
 	Fruit* testFruit = new Fruit();
@@ -182,12 +182,13 @@ void FruitWizardGame::InitialiseGame() {
 	AddNewObject(testDust);
 
 	Pixie* pixie = new Pixie();
-	pixie->SetPosition(Vector2(350, 96));
+	pixie->SetPosition(Vector2(50, 96 - 64));
+	pixie->SetSpringTarget(*player);
 	AddNewObject(pixie);
 
 	Froggo* testFroggo = new Froggo();
-	//testFroggo->SetPosition(Vector2(370, 285));
-	testFroggo->SetPosition(Vector2(370, 32));
+	testFroggo->SetPosition(Vector2(370, 285));
+	//testFroggo->SetPosition(Vector2(370, 32));
 	AddNewObject(testFroggo);
 
 	gameTime		= 0;
