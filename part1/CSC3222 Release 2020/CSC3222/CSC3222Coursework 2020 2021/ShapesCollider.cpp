@@ -120,7 +120,16 @@ namespace NCL {
         float CircleCollider::radius() const{
             return radius_;
         }
+        
+        float CircleCollider::GetMinExtent() const {
+            return this->GetPosition().x - this->radius();
+        }
 
+
+        float CircleCollider::GetMaxExtent() const {
+            return this->GetPosition().x + this->radius();
+        }
+        
         RectangleCollider::RectangleCollider(objectType type, float length, float width) {
             this->SetType(type);
             this->length_ = length;
@@ -156,5 +165,15 @@ namespace NCL {
         float RectangleCollider::width() const {
             return width_;
         }
-	}
+        
+        float RectangleCollider::GetMinExtent() const {
+            return this->GetPosition().x - this->length()/2;
+        }
+
+
+        float RectangleCollider::GetMaxExtent() const {
+            return this->GetPosition().x + this->length()/2;
+        }
+        
+}
 }

@@ -16,6 +16,8 @@ namespace NCL {
             
             // Return the radius of the circle
             float radius() const;
+            float GetMinExtent() const override;
+            float GetMaxExtent() const override;
 
         private:
             float radius_;
@@ -29,13 +31,14 @@ namespace NCL {
 
             ~RectangleCollider();
 
-            // Implement pure virtual functions from base
             bool overlaps(const CollisionVolume&) const override;
 
-            // Return size of the square
             float length() const;
 
             float width() const;
+
+            float GetMinExtent() const override;
+            float GetMaxExtent() const override;
 
         private:
             float length_;

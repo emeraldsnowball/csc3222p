@@ -54,6 +54,22 @@ namespace NCL {
 			virtual bool overlaps(const CollisionVolume&) const = 0;
 
 			char shape; // just to help draw debug shapes
+
+			// operator overloading for sorting for broad phase
+
+			bool operator== (CollisionVolume& rhs) {
+				return GetPosition().x == rhs.GetPosition().x;
+			}
+			
+
+			bool operator< (CollisionVolume& rhs) {
+				return GetPosition().x < rhs.GetPosition().x;
+			}
+			
+
+			virtual float GetMinExtent() const = 0;
+			virtual float GetMaxExtent() const = 0;
+
 		protected:
 			behaviour behaviour;
 			objectType type;

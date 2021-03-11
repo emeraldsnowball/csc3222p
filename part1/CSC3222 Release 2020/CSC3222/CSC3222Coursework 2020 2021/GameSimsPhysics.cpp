@@ -2,6 +2,7 @@
 #include "RigidBody.h"
 #include "CollisionVolume.h"
 #include "../../Common/Vector2.h"
+#include <algorithm>
 
 using namespace NCL;
 using namespace CSC3222;
@@ -24,7 +25,7 @@ void GameSimsPhysics::Update(float dt) {
 		CollisionDetection(subTimeDelta);
 		IntegrateVelocity(subTimeDelta);
 
-		for (int i = 0; i < allBodies.size(); i++) {
+		for ( unsigned int i = 0; i < allBodies.size(); i++) {
 			allBodies[i]->force = Vector2(0, 0);
 		}
 
@@ -60,7 +61,7 @@ void GameSimsPhysics::RemoveCollider(CollisionVolume* c) {
 
 void GameSimsPhysics::Integration(float dt) {
 	
-	for (int i = 0; i < allBodies.size(); i++) {
+	for (unsigned int i = 0; i < allBodies.size(); i++) {
 		Vector2 accelleration = allBodies[i]->force * allBodies[i]->inverseMass;
 		allBodies[i]->velocity += accelleration * dt;
 		allBodies[i]->velocity *= 0.94f;
@@ -70,16 +71,22 @@ void GameSimsPhysics::Integration(float dt) {
 }
 
 void GameSimsPhysics::IntegrateVelocity(float dt) {
-	for (int i = 0; i < allBodies.size(); i++) {
+	for (unsigned int i = 0; i < allBodies.size(); i++) {
 		allBodies[i]->position += allBodies[i]->velocity * dt;
 	}
 }
 
 void GameSimsPhysics::CollisionDetection(float dt) {
 
-	for (int i = 0; i < allColliders.size() - 1; ++i) {
-		for (int j = i + 1; j < allColliders.size(); ++j) {
+	std::sort(allColliders.begin(), allColliders.end());
 
+	for (unsigned int i = 0; i < allColliders.size() - 1; ++i) {
+		for (unsigned int j = i + 1; j < allColliders.size(); ++j) {
+			
+			if (allColliders[i]->GetMaxExtent() < allColliders[j]->GetMinExtent()) {
+				continue;
+			}
+			
 			if (allColliders[i]->GetPosition() == Vector2(0, 0) || allColliders[j]->GetPosition() == Vector2(0, 0)) {
 				continue;
 			}
@@ -89,13 +96,6 @@ void GameSimsPhysics::CollisionDetection(float dt) {
 			}
 
 			if (allColliders[i]->overlaps(*allColliders[j])) {
-				/*
-				std::cout << "collision detected between: "
-					<< ((allColliders[i]->shape == 'c') ? "circle " : "rectangle ")
-					<< i << " & " 
-					<< ((allColliders[j]->shape == 'c') ? " circle " : " rectangle ")
-					<< j << "\n";
-				*/
 				std::cout << "collision detected between: ";
 
 				switch (allColliders[i]->GetType())
