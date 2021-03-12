@@ -68,6 +68,7 @@ namespace NCL {
 			
 
 			virtual float GetMinExtent() const = 0;
+
 			virtual float GetMaxExtent() const = 0;
 
 		protected:

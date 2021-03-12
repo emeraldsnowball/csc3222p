@@ -29,6 +29,7 @@ namespace NCL::CSC3222 {
 
 		PlayerCharacter* player;
 
+
 		float gameTime;
 
 		int currentScore;

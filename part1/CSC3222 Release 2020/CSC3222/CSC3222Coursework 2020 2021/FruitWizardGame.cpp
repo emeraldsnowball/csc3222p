@@ -56,25 +56,11 @@ void FruitWizardGame::Update(float dt) {
 		}
 		else {
 			(*i)->DrawObject(*renderer);
-			/*
-			CollisionVolume* collider = (*i)->GetCollider();
-			if (collider) {
-				if (collider->shape == 'c') {
-					const CircleCollider* c = dynamic_cast<const CircleCollider*> (collider);
-
-					renderer->DrawCircle(collider->GetPosition(), c->radius(), Vector4(0, 1, 1, 1));
-					
-				}
-				else if (collider->shape == 'r') {
-					const RectangleCollider* r = dynamic_cast<const RectangleCollider*> (collider);
-					renderer->DrawBox(collider->GetPosition(), Vector2(r->length(), r->width()), Vector4(0, 1, 1, 1));
-				}
-			}
-			*/
 			++i;
 		}
 	}
 
+	// print all colliders
 	for (CollisionVolume* collider : physics->GetAllColliders()) {
 		if (collider->shape == 'c') {
 			const CircleCollider* c = dynamic_cast<const CircleCollider*> (collider);
@@ -99,8 +85,7 @@ void FruitWizardGame::Update(float dt) {
 		Vector2(366, 12), Vector4(0.5f, 0.3f, 0.8f, 1), 100.0f);
 
 	/*
-
-	// draw game map colliders 
+	// draw boxes to approximate the values for game map collider
 	// wall
 	renderer->DrawBox(Vector2(8, 160), Vector2(8.0f, 160), Vector4(1,0,0,1));
 	renderer->DrawBox(Vector2(472, 160), Vector2(8.0f, 160), Vector4(1, 0, 0, 1));
@@ -125,28 +110,12 @@ void FruitWizardGame::Update(float dt) {
 
 
 	*/
-	/*
-	Some examples of debug rendering! 
-	These all use coordinates in the same 'space' as the game positions
-	
-	renderer->DrawBox(Vector2(16,16), Vector2(8, 8), Vector4(1, 0, 0, 1));
-	renderer->DrawLine(Vector2(16, 16), Vector2(192, 192), Vector4(1, 1, 0, 1));
-	renderer->DrawCircle(Vector2(100, 100), 10.0f, Vector4(1, 0, 1, 1));
-
-	renderer->DrawCircle(player->GetPosition(), 10.0f, Vector4(1, 0, 1, 1));
-	renderer->DrawBox(player->GetPosition(), Vector2(8, 8), Vector4(1, 0, 0, 1));
-	*/
-
-	//collider drawing
-	//renderer->DrawCircle(player->GetCollider()->GetPosition(), 12.0f, Vector4(1, 1, 1, 1));
 
 	renderer->Render();
 
 	// tutorial 1 
 
 	//player->SetPosition(player->GetPosition() + Vector3(1,0,0) * 50 *dt );
-
-
 }
 
 void FruitWizardGame::InitialiseGame() {

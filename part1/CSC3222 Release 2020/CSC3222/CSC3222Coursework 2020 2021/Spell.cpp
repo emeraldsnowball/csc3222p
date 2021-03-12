@@ -43,8 +43,7 @@ Spell::Spell(Vector2 direction) : SimObject()	{
 
 	collider->SetPosition(position);
 
-	AddImpulse(Vector2(1000, 0));
-
+	AddImpulse(Vector2(1000, 0)); // add impulse at time of creation
 }
 
 Spell::~Spell()	{
@@ -62,6 +61,7 @@ bool Spell::UpdateObject(float dt) {
 
 	timeSpawned += dt;
 
+	// remove spell 1 sec after spawn
 	if (timeSpawned > 1.0f) {
 		return false;
 	}

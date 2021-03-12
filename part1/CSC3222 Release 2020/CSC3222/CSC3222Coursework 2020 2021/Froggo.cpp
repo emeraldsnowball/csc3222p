@@ -74,8 +74,6 @@ Froggo::~Froggo() {
 
 bool Froggo::UpdateObject(float dt) {
 	animFrameData = froggoWalkFrames[currentanimFrame];
-
-
 	collider->SetPosition(position + Vector2(2, 8));
 	return true;
 }

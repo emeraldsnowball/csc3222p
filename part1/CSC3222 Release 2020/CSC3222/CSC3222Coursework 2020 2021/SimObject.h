@@ -41,6 +41,7 @@ namespace NCL {
 			static void InitObjects(FruitWizardGame* game, TextureManager* manager);
 
 			void SetSpringTarget(RigidBody& obj);
+
 			void UpdateSprings();
 
 		protected:

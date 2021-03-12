@@ -45,10 +45,6 @@ GameMap::GameMap(const std::string& filename, std::vector<SimObject*>& objects, 
 		}
 	}
 
-	//CollisionVolume* leftWall = new RectangleCollider(CollisionVolume::objectType::WALL, 16.0f, 21*16.0f);
-	//leftWall->SetPosition(Vector2(100,0));
-
-	//physics->AddCollider(leftWall);
 	AddMapColliders(physics);
 	BuildMapMesh();
 }
@@ -60,7 +56,7 @@ GameMap::~GameMap()	{
 
 	delete mapMesh;
 }
-
+// manually added the game map colliders
 void GameMap::AddMapColliders(GameSimsPhysics* physics) {
 	// walls 
 	CollisionVolume* leftWall = new RectangleCollider(CollisionVolume::objectType::WALL, 16, 304);

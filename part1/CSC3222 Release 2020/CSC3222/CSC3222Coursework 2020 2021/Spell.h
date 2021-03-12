@@ -11,7 +11,7 @@ namespace NCL {
 			Spell(Vector2 direction);
 			~Spell();
 
-			float timeSpawned;
+			float timeSpawned; // so we can remove spell after certain time 
 
 			void DrawObject(GameSimsRenderer &r) override;
 			bool UpdateObject(float dt) override;

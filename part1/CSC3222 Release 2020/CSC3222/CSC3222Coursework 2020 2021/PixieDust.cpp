@@ -27,7 +27,6 @@ PixieDust::~PixieDust() {
 
 bool PixieDust::UpdateObject(float dt) {
 	animFrameData = animFrames[currentanimFrame];
-
 	collider->SetPosition(position);
 	return true;
 }

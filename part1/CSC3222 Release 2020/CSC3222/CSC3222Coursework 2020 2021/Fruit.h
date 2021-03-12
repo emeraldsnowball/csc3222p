@@ -7,6 +7,7 @@ namespace NCL::CSC3222 {
 		Fruit();
 		~Fruit();
 		bool UpdateObject(float dt) override;
+
 	protected:
 
 	};

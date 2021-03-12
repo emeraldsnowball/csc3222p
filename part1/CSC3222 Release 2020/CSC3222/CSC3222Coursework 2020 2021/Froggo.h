@@ -8,7 +8,6 @@ namespace NCL::CSC3222 {
 		~Froggo();
 
 		bool UpdateObject(float dt) override;
-
 	protected:
 
 	};

@@ -22,6 +22,7 @@ int main() {
 
 		theGame->Update(time);
 
+
 		if (Window::GetKeyboard()->KeyPressed(KeyboardKeys::PRIOR)) {
 			w->ShowConsole(true);
 		}

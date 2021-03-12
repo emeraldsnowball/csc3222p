@@ -6,7 +6,6 @@ namespace NCL::CSC3222 {
 	public:
 		PixieDust();
 		~PixieDust();
-
 		bool UpdateObject(float dt) override;
 
 	protected:

@@ -19,6 +19,7 @@ void GameSimsPhysics::Update(float dt) {
 	timeRemaining += dt;
 	const float subTimeDelta = 1.0f / 120;
 
+	// fixed time step update
 	while (timeRemaining > subTimeDelta) {
 
 		Integration(subTimeDelta);
@@ -78,19 +79,21 @@ void GameSimsPhysics::IntegrateVelocity(float dt) {
 
 void GameSimsPhysics::CollisionDetection(float dt) {
 
-	std::sort(allColliders.begin(), allColliders.end());
+	std::sort(allColliders.begin(), allColliders.end()); // sorting for broad phase
 
 	for (unsigned int i = 0; i < allColliders.size() - 1; ++i) {
 		for (unsigned int j = i + 1; j < allColliders.size(); ++j) {
 			
+			// get rid of comparision of objects filtered from broad phase for narrow phase
 			if (allColliders[i]->GetMaxExtent() < allColliders[j]->GetMinExtent()) {
 				continue;
 			}
 			
+			// stop from all colliders firing at oonce at frame 1 when they are all at position (0,0)
 			if (allColliders[i]->GetPosition() == Vector2(0, 0) || allColliders[j]->GetPosition() == Vector2(0, 0)) {
 				continue;
 			}
-
+			// no need to compare set of two static object since they will never collide
 			if (allColliders[i]->GetBehaviour() == CollisionVolume::behaviour::STATIC && allColliders[j]->GetBehaviour() == CollisionVolume::behaviour::STATIC) {
 				continue;
 			}

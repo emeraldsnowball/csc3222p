@@ -6,15 +6,15 @@ namespace NCL {
 	using namespace Maths;
 	namespace CSC3222 {
 
-        // Direct a square-shape* collision
+        // Direct a rectangle-shape* collision
         bool CollisionManager::collides(
             const RectangleCollider& lhs,
             const std::shared_ptr<CollisionVolume>& rhs)
         {
-            // If we successfully cast rhs to square, perform square-square comparison
+            // If we successfully cast rhs to rectangle, perform rectangle-rectangle comparison
             if (auto square = std::dynamic_pointer_cast<RectangleCollider>(rhs))
                 return collides(lhs, *square);
-            // If we successfully cast rhs to circle, perform circle-square comparison
+            // If we successfully cast rhs to circle, perform circle-rectangle comparison
             if (auto circle = std::dynamic_pointer_cast<CircleCollider>(rhs))
                 return collides(*circle, lhs);
 
@@ -27,7 +27,7 @@ namespace NCL {
             const CircleCollider& lhs,
             const std::shared_ptr<CollisionVolume>& rhs)
         {
-            // If we successfully cast rhs to square, perform circle-square comparison
+            // If we successfully cast rhs to square, perform circle-rectangle comparison
             if (auto square = std::dynamic_pointer_cast<RectangleCollider>(rhs))
                 return collides(lhs, *square);
             // If we successfully cast rhs to circle, perform circle-circle comparison
@@ -39,7 +39,7 @@ namespace NCL {
             return false;
         }
 
-        // Calculate a square-square collision
+        // Calculate a rectangle-rectangle collision
         bool CollisionManager::collides(const RectangleCollider& lhs, const RectangleCollider& rhs)
         {
             Vector2 posA = lhs.GetPosition();
@@ -62,24 +62,17 @@ namespace NCL {
                 <= pow(lhs.radius() + rhs.radius(), 2);
         }
 
-        // Calculate a square-circle collision
+        // Calculate a rectangle-circle collision
         bool CollisionManager::collides(const CircleCollider& lhs, const RectangleCollider& rhs)
         {
             // Find closest point on square to the circle
-            double closest_x = clamp(lhs.GetPosition().x, rhs.GetPosition().x - rhs.length() / 2, rhs.GetPosition().x + rhs.length()/2);
-            double closest_y = clamp(lhs.GetPosition().y, rhs.GetPosition().y - rhs.width() / 2, rhs.GetPosition().y + rhs.width()/2);
+            float closest_x = clamp(lhs.GetPosition().x, rhs.GetPosition().x - rhs.length() / 2, rhs.GetPosition().x + rhs.length()/2);
+            float closest_y = clamp(lhs.GetPosition().y, rhs.GetPosition().y - rhs.width() / 2, rhs.GetPosition().y + rhs.width()/2);
             Vector2 closestPoint(closest_x, closest_y);
 
             float distance = fabs((closestPoint - lhs.GetPosition()).Length());
 
             return (distance < lhs.radius());
-
-            // See if the point is closer than radius distance from the circle center
-            // Use squared values to avoid slower sqrt calculations
-           /*
-            return pow(lhs.GetPosition().x - closest_x, 2) + pow(lhs.GetPosition().y - closest_y, 2)
-                <= pow(lhs.radius(), 2);
-                */
         }
 
         // Clamp function to restrict value to given range
@@ -110,7 +103,7 @@ namespace NCL {
                 return CollisionManager::collides(*this, *c);
             }
 
-            else if (rhs.shape == 'r') {
+            else {
                 const RectangleCollider* r = dynamic_cast<const RectangleCollider*>(&rhs);
                 return CollisionManager::collides(*this, *r);
             }
@@ -152,7 +145,7 @@ namespace NCL {
                 return CollisionManager::collides(*c, *this);
             }
 
-            else if (rhs.shape == 'r') {
+            else {
                 const RectangleCollider* r = dynamic_cast<const RectangleCollider*>(&rhs);
                 return CollisionManager::collides(*this, *r);
             }

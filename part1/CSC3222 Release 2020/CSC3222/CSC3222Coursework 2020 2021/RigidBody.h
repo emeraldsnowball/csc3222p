@@ -31,6 +31,7 @@ namespace NCL {
 			}
 
 			void AddImpulse(const Vector2& impulse) {
+
 				velocity += impulse * inverseMass;
 			}
 

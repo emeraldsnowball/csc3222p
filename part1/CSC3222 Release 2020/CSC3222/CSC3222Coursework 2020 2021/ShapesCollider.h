@@ -52,7 +52,7 @@ namespace NCL {
             static bool collides(const RectangleCollider&, const std::shared_ptr<CollisionVolume>&);
             static bool collides(const CircleCollider&, const std::shared_ptr<CollisionVolume>&);
 
-            // Calculate a square-square, circle-circle, or circle-square collision
+            // Calculate a rectangle-rectangle, circle-circle, or circle-rectangle collision
             static bool collides(const RectangleCollider&, const RectangleCollider&);
             static bool collides(const CircleCollider&, const CircleCollider&);
             static bool collides(const CircleCollider&, const RectangleCollider&);

@@ -83,7 +83,6 @@ PlayerCharacter::~PlayerCharacter() {
 bool PlayerCharacter::UpdateObject(float dt) {
 	float testSpeed = 64;
 	Vector4* animSource = idleFrames;
-
 	Vector2 newVelocity;
 
 	if (currentAnimState == PlayerState::Attack) {
@@ -111,7 +110,7 @@ bool PlayerCharacter::UpdateObject(float dt) {
 		if (game->magicCount > 0 && Window::GetKeyboard()->KeyPressed(KeyboardKeys::SPACE)) {
 			currentAnimState = PlayerState::Attack;
 			currentanimFrame = 0;
-			game->AddNewObject(new Spell(this->GetPosition()));
+			game->AddNewObject(new Spell(this->GetPosition())); // create spell on attack
 			game->magicCount--;
 		}
 	}

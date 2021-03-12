@@ -31,7 +31,5 @@ bool Pixie::UpdateObject(float dt) {
 
 	UpdateSprings();
 	collider->SetPosition(position);
-
-
 	return true;
 }

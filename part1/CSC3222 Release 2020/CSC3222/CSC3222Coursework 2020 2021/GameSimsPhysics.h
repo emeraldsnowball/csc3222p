@@ -30,6 +30,7 @@ namespace NCL {
 			void IntegrateVelocity(float dt);
 
 			float timeRemaining = 0;
+
 			std::vector<RigidBody*>			allBodies;
 			std::vector<CollisionVolume*>	allColliders;
 		};

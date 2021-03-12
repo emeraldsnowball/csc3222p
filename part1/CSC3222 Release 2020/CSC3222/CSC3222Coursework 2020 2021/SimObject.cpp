@@ -51,14 +51,14 @@ void SimObject::SetSpringTarget(RigidBody& obj) {
 
 void SimObject::UpdateSprings() {
 	const float c = 1;
-	const float snappiness = 1;
-	
+	const float snappiness = 2;
+	const float restingLength = 24;
 
 	Vector2 lhs_vel = this->GetVelocity();
 	Vector2 rhs_vel = ptr->GetVelocity();
 
 	Vector2 direction = (this->GetPosition() - ptr->GetPosition()).Normalised();
-	float distance = (this->GetPosition() - ptr->GetPosition()).Length() - 0.5f;
+	float distance = (this->GetPosition() - ptr->GetPosition()).Length() - restingLength;
 
 	float force = -snappiness * distance;
 	float relVelocity = Vector2::Dot(rhs_vel - lhs_vel, direction);

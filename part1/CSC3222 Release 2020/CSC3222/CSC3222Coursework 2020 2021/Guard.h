@@ -6,7 +6,6 @@ namespace NCL::CSC3222 {
 	public:
 		Guard();
 		~Guard();
-
 		bool UpdateObject(float dt) override;
 	
 	protected:

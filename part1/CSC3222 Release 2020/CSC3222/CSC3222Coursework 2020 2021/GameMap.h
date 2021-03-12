@@ -25,6 +25,7 @@ namespace NCL {
 
 			void DrawMap(GameSimsRenderer & r);
 
+
 			int GetMapWidth() const {
 				return mapWidth;
 			}
