@@ -1,5 +1,6 @@
 #pragma once
 #include "../../Common/Vector2.h"
+#include "GameSimsPhysics.h"
 namespace NCL {
 	using namespace Maths;
 	namespace CSC3222 {
@@ -51,7 +52,7 @@ namespace NCL {
 			};
 
 
-			virtual bool overlaps(const CollisionVolume&) const = 0;
+			virtual bool overlaps(const CollisionVolume&, CollisionPair& collisiondata) const = 0;
 
 			char shape; // just to help draw debug shapes
 

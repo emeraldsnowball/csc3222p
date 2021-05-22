@@ -12,7 +12,7 @@ namespace NCL {
             ~CircleCollider();
 
             // Implement pure virtual functions from base
-            bool overlaps(const CollisionVolume&) const override;
+            bool overlaps(const CollisionVolume&, CollisionPair& collisiondata) const override;
             
             // Return the radius of the circle
             float radius() const;
@@ -31,7 +31,7 @@ namespace NCL {
 
             ~RectangleCollider();
 
-            bool overlaps(const CollisionVolume&) const override;
+            bool overlaps(const CollisionVolume&, CollisionPair& collisiondata) const override;
 
             float length() const;
 
@@ -49,13 +49,13 @@ namespace NCL {
 
         public:
             // Determine the type of a pointer to base before sending for calculation
-            static bool collides(const RectangleCollider&, const std::shared_ptr<CollisionVolume>&);
-            static bool collides(const CircleCollider&, const std::shared_ptr<CollisionVolume>&);
+            static bool collides(const RectangleCollider&, const std::shared_ptr<CollisionVolume>&, CollisionPair& collisiondata);
+            static bool collides(const CircleCollider&, const std::shared_ptr<CollisionVolume>&, CollisionPair& collisiondata);
 
             // Calculate a rectangle-rectangle, circle-circle, or circle-rectangle collision
-            static bool collides(const RectangleCollider&, const RectangleCollider&);
-            static bool collides(const CircleCollider&, const CircleCollider&);
-            static bool collides(const CircleCollider&, const RectangleCollider&);
+            static bool collides(const RectangleCollider&, const RectangleCollider&, CollisionPair& collisiondata);
+            static bool collides(const CircleCollider&, const CircleCollider&, CollisionPair& collisiondata);
+            static bool collides(const CircleCollider&, const RectangleCollider&, CollisionPair& collisiondata);
 
             // Helper method to limit a value p to within min and max range
             static float clamp(float p, float min, float max);

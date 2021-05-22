@@ -4,8 +4,18 @@
 
 namespace NCL {
 	namespace CSC3222 {
+		using namespace Maths;
 		class RigidBody;
 		class CollisionVolume;
+
+		struct CollisionPair {
+			RigidBody* o1;
+			RigidBody* o2;
+			CollisionVolume* c1;
+			CollisionVolume* c2;
+			Vector2 collisionNormal;
+			float overlapDistance;
+		};
 
 		class GameSimsPhysics	{
 		public:
@@ -28,6 +38,8 @@ namespace NCL {
 			void Integration(float dt);
 			void CollisionDetection(float dt);
 			void IntegrateVelocity(float dt);
+
+			void CollisionResolution(float dt);
 
 			float timeRemaining = 0;
 

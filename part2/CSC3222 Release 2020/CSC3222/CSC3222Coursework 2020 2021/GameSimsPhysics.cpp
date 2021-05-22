@@ -97,8 +97,14 @@ void GameSimsPhysics::CollisionDetection(float dt) {
 			if (allColliders[i]->GetBehaviour() == CollisionVolume::behaviour::STATIC && allColliders[j]->GetBehaviour() == CollisionVolume::behaviour::STATIC) {
 				continue;
 			}
+			CollisionPair collisionData = {};
+			if (allColliders[i]->overlaps(*allColliders[j], collisionData)) {
+				collisionData.c1 = allColliders[i];
+				collisionData.c2 = allColliders[j];
+				//print things here
 
-			if (allColliders[i]->overlaps(*allColliders[j])) {
+
+				/*
 				std::cout << "collision detected between: ";
 
 				switch (allColliders[i]->GetType())
@@ -172,9 +178,17 @@ void GameSimsPhysics::CollisionDetection(float dt) {
 				}
 
 				std::cout << " \n";
+				*/
+
+
 
 			}
 		}
+	
 	}
+
+}
+
+void GameSimsPhysics::CollisionResolution(float dt) {
 
 }
