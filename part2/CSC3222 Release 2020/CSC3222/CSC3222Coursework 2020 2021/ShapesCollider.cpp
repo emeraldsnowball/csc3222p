@@ -113,16 +113,18 @@ namespace NCL {
             return p;
         }
 
-        CircleCollider::CircleCollider(objectType type, float radius) {
+        CircleCollider::CircleCollider(objectType type, RigidBody* rb, float radius) {
             this->SetType(type);
             this->radius_ = radius;
             this->shape = 'c';
+            this->rb = rb;
         }
 
         CircleCollider::CircleCollider(const CircleCollider& copy) {
             this->SetType(copy.GetType());
             radius_ = copy.radius_;
             this->shape = 'c';
+            this->rb = copy.GetRigidBody();
         }
 
         CircleCollider:: ~CircleCollider() = default;
@@ -153,11 +155,12 @@ namespace NCL {
             return this->GetPosition().x + this->radius();
         }
         
-        RectangleCollider::RectangleCollider(objectType type, float length, float width) {
+        RectangleCollider::RectangleCollider(objectType type, RigidBody* rb, float length, float width) {
             this->SetType(type);
             this->length_ = length;
             this->width_ = width;
             this->shape = 'r';
+            this->rb = rb;
         }
 
         RectangleCollider::RectangleCollider(const RectangleCollider& copy) {
@@ -165,6 +168,7 @@ namespace NCL {
             this->length_ = copy.length_;
             this->width_ = copy.width_;
             this->shape = 'r';
+            this->rb = copy.GetRigidBody();
         }
 
         RectangleCollider::~RectangleCollider() = default;

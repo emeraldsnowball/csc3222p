@@ -101,6 +101,9 @@ void GameSimsPhysics::CollisionDetection(float dt) {
 			if (allColliders[i]->overlaps(*allColliders[j], collisionData)) {
 				collisionData.c1 = allColliders[i];
 				collisionData.c2 = allColliders[j];
+				collisionData.o1 = allColliders[i]->GetRigidBody();
+				collisionData.o2 = allColliders[j]->GetRigidBody();
+
 				//print things here
 
 

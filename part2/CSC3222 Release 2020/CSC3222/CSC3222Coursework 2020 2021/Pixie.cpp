@@ -17,7 +17,7 @@ Pixie::Pixie() : SimObject() {
 	texture			= texManager->GetTexture("FruitWizard\\super_random_sprites.png");
 	animFrameCount	= 4;
 
-	collider = new CircleCollider(CollisionVolume::objectType::PIXIE, 12.0f);
+	collider = new CircleCollider(CollisionVolume::objectType::PIXIE, this, 12.0f);
 	collider->SetBehaviour(CollisionVolume::behaviour::DYNAMIC);
 	SetCollider(collider);
 	collider->SetPosition(position);

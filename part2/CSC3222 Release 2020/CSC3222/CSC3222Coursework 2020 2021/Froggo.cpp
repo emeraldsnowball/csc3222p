@@ -63,7 +63,7 @@ Froggo::Froggo() : SimObject() {
 	texture			 = texManager->GetTexture("FruitWizard\\frogman_crown.png");
 	animFrameCount	 = 6;
 
-	collider = new RectangleCollider(CollisionVolume::objectType::FROGGO, 2*12.0f, 2*16.0f);
+	collider = new RectangleCollider(CollisionVolume::objectType::FROGGO, this, 2*12.0f, 2*16.0f);
 	collider->SetBehaviour(CollisionVolume::behaviour::DYNAMIC);
 	SetCollider(collider);
 	//collider->SetPosition(position + Vector2(2,8));

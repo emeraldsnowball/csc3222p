@@ -16,7 +16,7 @@ PixieDust::PixieDust() : SimObject() {
 	animFrameCount = 4;
 	texture = texManager->GetTexture("FruitWizard\\mini_fantasy_sprites_oga_ver.png");
 
-	collider = new CircleCollider(CollisionVolume::objectType::PIXIEDUST, 12.0f);
+	collider = new CircleCollider(CollisionVolume::objectType::PIXIEDUST, this, 12.0f);
 	collider->SetBehaviour(CollisionVolume::behaviour::STATIC);
 	SetCollider(collider);
 	collider->SetPosition(position);

@@ -37,7 +37,7 @@ Spell::Spell(Vector2 direction) : SimObject()	{
 
 	this->SetPosition(direction);
 
-	collider = new CircleCollider(CollisionVolume::objectType::SPELL, 12.0f);
+	collider = new CircleCollider(CollisionVolume::objectType::SPELL, this, 12.0f);
 	collider->SetBehaviour(CollisionVolume::behaviour::DYNAMIC);
 	SetCollider(collider);
 

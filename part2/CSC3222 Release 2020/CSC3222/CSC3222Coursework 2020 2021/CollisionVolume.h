@@ -1,8 +1,10 @@
 #pragma once
 #include "../../Common/Vector2.h"
 #include "GameSimsPhysics.h"
+#include "Rigidbody.h"
 namespace NCL {
 	using namespace Maths;
+	class RigidBody;
 	namespace CSC3222 {
 		class CollisionVolume {
 		public:
@@ -72,10 +74,16 @@ namespace NCL {
 
 			virtual float GetMaxExtent() const = 0;
 
+			RigidBody* GetRigidBody() const {
+				return rb;
+			};
+
+
 		protected:
 			behaviour behaviour;
 			objectType type;
 			Vector2 position;
+			RigidBody* rb;
 		};
 	}
 }

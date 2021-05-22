@@ -46,7 +46,7 @@ Guard::Guard() : SimObject() {
 	animFrameCount	= 6;
 
 
-	collider = new RectangleCollider(CollisionVolume::objectType::GUARD, 2*10.0f, 2*12.0f);
+	collider = new RectangleCollider(CollisionVolume::objectType::GUARD, this, 2*10.0f, 2*12.0f);
 	collider->SetBehaviour(CollisionVolume::behaviour::DYNAMIC);
 	SetCollider(collider);
 	collider->SetPosition(position);

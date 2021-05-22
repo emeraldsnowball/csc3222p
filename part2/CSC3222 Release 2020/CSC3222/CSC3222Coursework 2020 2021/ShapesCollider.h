@@ -3,10 +3,11 @@
 #include "CollisionVolume.h"
 namespace NCL {
 	using namespace Maths;
+    class RigidBody;
 	namespace CSC3222 {
 		class CircleCollider : public CollisionVolume {
         public:
-            explicit CircleCollider(objectType type, float radius = 1);
+            explicit CircleCollider(objectType type, RigidBody* rb, float radius = 1);
             CircleCollider(const CircleCollider& );
 
             ~CircleCollider();
@@ -26,7 +27,7 @@ namespace NCL {
 
 		class RectangleCollider : public CollisionVolume {
         public:
-            explicit RectangleCollider(objectType type, float length = 1, float width = 1);
+            explicit RectangleCollider(objectType type, RigidBody* rb, float length = 1, float width = 1);
             RectangleCollider(const RectangleCollider&);
 
             ~RectangleCollider();
