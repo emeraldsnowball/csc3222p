@@ -34,7 +34,20 @@ namespace NCL {
 
 				velocity += impulse * inverseMass;
 			}
-
+			/*
+			void SetMass(float newMass) {
+				if (newMass == 0) {
+					inverseMass = 0;
+				}
+				else
+				{
+					inverseMass = 1 / newMass;
+				}
+			}
+			*/
+			void SetDamping(float newdamping) {
+				damping = newdamping;
+			}
 
 		protected:
 			Vector2 position;
@@ -43,6 +56,7 @@ namespace NCL {
 
 			float inverseMass;
 			float elasticity;
+			float damping = 0.94f;
 
 		};
 	}

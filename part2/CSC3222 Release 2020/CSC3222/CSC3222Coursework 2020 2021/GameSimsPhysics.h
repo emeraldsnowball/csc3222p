@@ -1,12 +1,14 @@
 #pragma once
 #include <vector>
 #include "../../Common/Vector2.h"
+//#include "FruitWizardGame.h"
 
 namespace NCL {
 	namespace CSC3222 {
 		using namespace Maths;
 		class RigidBody;
 		class CollisionVolume;
+		class FruitWizardGame;
 
 		struct CollisionPair {
 			RigidBody* o1;
@@ -19,7 +21,7 @@ namespace NCL {
 
 		class GameSimsPhysics	{
 		public:
-			GameSimsPhysics();
+			GameSimsPhysics(FruitWizardGame* game);
 			~GameSimsPhysics();
 
 			void Update(float dt);
@@ -33,18 +35,24 @@ namespace NCL {
 			std::vector<CollisionVolume*> GetAllColliders() {
 				return allColliders;
 			};
+			void CollisionResolution(CollisionPair*);
+			void Projection(CollisionPair*);
+			void Impulse(CollisionPair*);
 
 		protected:
 			void Integration(float dt);
 			void CollisionDetection(float dt);
 			void IntegrateVelocity(float dt);
 
-			void CollisionResolution(float dt);
+			
 
 			float timeRemaining = 0;
 
 			std::vector<RigidBody*>			allBodies;
 			std::vector<CollisionVolume*>	allColliders;
+
+			static FruitWizardGame* game;
+
 		};
 	}
 }

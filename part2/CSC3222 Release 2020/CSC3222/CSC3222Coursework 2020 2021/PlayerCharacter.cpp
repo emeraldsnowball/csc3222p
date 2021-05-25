@@ -74,6 +74,8 @@ PlayerCharacter::PlayerCharacter() : SimObject() {
 	collider->SetBehaviour(CollisionVolume::behaviour::DYNAMIC);
 	SetCollider(collider);
 	collider->SetPosition(position);
+
+	//SetMass(55);
 }
 
 PlayerCharacter::~PlayerCharacter() {

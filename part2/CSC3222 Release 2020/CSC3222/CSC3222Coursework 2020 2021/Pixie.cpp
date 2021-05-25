@@ -21,6 +21,8 @@ Pixie::Pixie() : SimObject() {
 	collider->SetBehaviour(CollisionVolume::behaviour::DYNAMIC);
 	SetCollider(collider);
 	collider->SetPosition(position);
+
+	//SetMass(5);
 }
 
 Pixie::~Pixie() {

@@ -21,7 +21,7 @@ using namespace CSC3222;
 FruitWizardGame::FruitWizardGame()	{
 	renderer	= new GameSimsRenderer();
 	texManager	= new TextureManager();
-	physics		= new GameSimsPhysics();
+	physics		= new GameSimsPhysics(this);
 	SimObject::InitObjects(this, texManager);
 	InitialiseGame();
 }
@@ -134,8 +134,8 @@ void FruitWizardGame::InitialiseGame() {
 	AddNewObject(player);
 
 	Guard* testGuard = new Guard();
-	//testGuard->SetPosition(Vector2(150, 224));
-	testGuard->SetPosition(Vector2(200, 32));
+	testGuard->SetPosition(Vector2(150, 224));
+	//testGuard->SetPosition(Vector2(200, 32));
 	AddNewObject(testGuard);
 
 	//Spell* testSpell = new Spell(Vector2(1,0));
@@ -143,7 +143,8 @@ void FruitWizardGame::InitialiseGame() {
 	//AddNewObject(testSpell);
 
 	Fruit* testFruit = new Fruit();
-	testFruit->SetPosition(Vector2(250, 150));
+	//testFruit->SetPosition(Vector2(250, 150));
+	testFruit->SetPosition(Vector2(200, 22));
 	AddNewObject(testFruit);
 
 	PixieDust* testDust = new PixieDust();
@@ -162,7 +163,7 @@ void FruitWizardGame::InitialiseGame() {
 
 	gameTime		= 0;
 	currentScore	= 0;
-	magicCount		= 3;
+	magicCount		= 300;
 	dustCount		= 0;
 	lives			= 3;
 }
@@ -173,4 +174,27 @@ void FruitWizardGame::AddNewObject(SimObject* object) {
 	if (object->GetCollider()) {
 		physics->AddCollider(object->GetCollider());
 	}
+}
+
+bool FruitWizardGame::checkCollisionObject(CollisionPair* collisionData) {
+
+	if (collisionData->c1->GetType() == CollisionVolume::objectType::WALL && !(collisionData->c2->GetType() == CollisionVolume::objectType::PIXIE)) {
+		return true;
+	}
+
+	if (collisionData->c2->GetType() == CollisionVolume::objectType::WALL && !(collisionData->c1->GetType() == CollisionVolume::objectType::PIXIE)) {
+		return true;
+	}
+
+	if (collisionData->c1->GetType() == CollisionVolume::objectType::GROUND && !(collisionData->c2->GetType() == CollisionVolume::objectType::PIXIE)) {
+		return true;
+	}
+
+	if (collisionData->c2->GetType() == CollisionVolume::objectType::GROUND && !(collisionData->c1->GetType() == CollisionVolume::objectType::PIXIE)) {
+		return true;
+	}
+
+
+
+	return false;
 }

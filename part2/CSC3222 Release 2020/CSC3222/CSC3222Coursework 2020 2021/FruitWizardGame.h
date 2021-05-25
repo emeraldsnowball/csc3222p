@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "GameSimsPhysics.h"
 
 namespace NCL::CSC3222 {
 	class GameMap;
@@ -19,6 +20,9 @@ namespace NCL::CSC3222 {
 
 		void AddNewObject(SimObject* object);
 		int magicCount;
+
+		bool checkCollisionObject(CollisionPair*);
+
 	protected:
 		void InitialiseGame();
 

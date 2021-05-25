@@ -42,8 +42,8 @@ Spell::Spell(Vector2 direction) : SimObject()	{
 	SetCollider(collider);
 
 	collider->SetPosition(position);
-
-	AddImpulse(Vector2(1000, 0)); // add impulse at time of creation
+	SetDamping(1.0f);
+	AddImpulse(Vector2(200, 0)); // add impulse at time of creation
 }
 
 Spell::~Spell()	{
@@ -60,12 +60,12 @@ bool Spell::UpdateObject(float dt) {
 	animFrameData = explodeFrames[currentanimFrame];
 
 	timeSpawned += dt;
-
+	/*
 	// remove spell 1 sec after spawn
 	if (timeSpawned > 1.0f) {
 		return false;
 	}
-
+	*/
 	collider->SetPosition(position);
 	return true;
 }
