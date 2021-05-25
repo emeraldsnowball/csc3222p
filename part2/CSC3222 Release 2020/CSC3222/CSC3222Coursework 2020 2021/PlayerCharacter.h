@@ -8,6 +8,8 @@ namespace NCL::CSC3222 {
 		PlayerCharacter();
 		~PlayerCharacter();
 
+		bool canClimb = false;
+
 		bool UpdateObject(float dt) override;
 	protected:
 		enum class PlayerState {
@@ -16,7 +18,8 @@ namespace NCL::CSC3222 {
 			Attack,
 			Fall,
 			Die,
-			Idle
+			Idle,
+			Climb
 
 		};
 		PlayerState		currentAnimState;

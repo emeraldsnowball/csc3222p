@@ -69,9 +69,52 @@ void GameMap::AddMapColliders(GameSimsPhysics* physics) {
 	rightWall->SetPosition(Vector2(472, 160));
 	physics->AddCollider(rightWall);
 
+	
+	// ladders 
+
+	CollisionVolume* ladder1a = new RectangleCollider(CollisionVolume::objectType::LADDER, nullptr, 2 * 16, 2 * 32);
+	ladder1a->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	ladder1a->SetPosition(Vector2(112, 48));
+	physics->AddCollider(ladder1a);
+
+	CollisionVolume* ladder1b = new RectangleCollider(CollisionVolume::objectType::LADDER, nullptr, 2 * 16, 2 * 32);
+	ladder1b->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	ladder1b->SetPosition(Vector2(256, 48));
+	physics->AddCollider(ladder1b);
+
+	CollisionVolume* ladder2a = new RectangleCollider(CollisionVolume::objectType::LADDER, nullptr, 2 * 16, 2 * 2 * 32);
+	ladder2a->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	ladder2a->SetPosition(Vector2(32, 48 + 96));
+	physics->AddCollider(ladder2a);
+
+	CollisionVolume* ladder2b = new RectangleCollider(CollisionVolume::objectType::LADDER, nullptr, 2 * 16, 2 * 32);
+	ladder2b->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	ladder2b->SetPosition(Vector2(368, 48 + 64));
+	physics->AddCollider(ladder2b);
+
+	CollisionVolume* ladder3a = new RectangleCollider(CollisionVolume::objectType::LADDER, nullptr, 2 * 16, 2 * 32);
+	ladder3a->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	ladder3a->SetPosition(Vector2(192, 48 + 64 + 64));
+	physics->AddCollider(ladder3a);
+
+	CollisionVolume* ladder3b = new RectangleCollider(CollisionVolume::objectType::LADDER, nullptr, 2 * 16, 2 * 32);
+	ladder3b->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	ladder3b->SetPosition(Vector2(304, 48 + 64 + 64));
+	physics->AddCollider(ladder3b);
+
+	CollisionVolume* ladder4a = new RectangleCollider(CollisionVolume::objectType::LADDER, nullptr, 2 * 16, 2 * 2 * 32);
+	ladder4a->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	ladder4a->SetPosition(Vector2(432, 48 + 64 + 96));
+	physics->AddCollider(ladder4a);
+
+	CollisionVolume* ladder4b = new RectangleCollider(CollisionVolume::objectType::LADDER, nullptr, 2 * 16, 2 * 32);
+	ladder4b->SetBehaviour(CollisionVolume::behaviour::STATIC);
+	ladder4b->SetPosition(Vector2(96, 48 + 64 + 64 + 64));
+	physics->AddCollider(ladder4b);
+	
 	//ground / platforms
 
-	CollisionVolume* ground = new RectangleCollider(CollisionVolume::objectType::GROUND, nullptr, 240*2, 8*2);
+	CollisionVolume* ground = new RectangleCollider(CollisionVolume::objectType::BASE, nullptr, 240*2, 8*2);
 	ground->SetBehaviour(CollisionVolume::behaviour::STATIC);
 	ground->SetPosition(Vector2(240, 8));
 	physics->AddCollider(ground);
@@ -111,47 +154,7 @@ void GameMap::AddMapColliders(GameSimsPhysics* physics) {
 	platform4b->SetPosition(Vector2(72, 72 + 64 + 64 + 64));
 	physics->AddCollider(platform4b);
 
-	// ladders 
-
-	CollisionVolume* ladder1a = new RectangleCollider(CollisionVolume::objectType::LADDER, nullptr, 2 * 10, 2 * 32);
-	ladder1a->SetBehaviour(CollisionVolume::behaviour::STATIC);
-	ladder1a->SetPosition(Vector2(112, 48));
-	physics->AddCollider(ladder1a);
-
-	CollisionVolume* ladder1b = new RectangleCollider(CollisionVolume::objectType::LADDER, nullptr, 2 * 10, 2 * 32);
-	ladder1b->SetBehaviour(CollisionVolume::behaviour::STATIC);
-	ladder1b->SetPosition(Vector2(256, 48));
-	physics->AddCollider(ladder1b);
-
-	CollisionVolume* ladder2a = new RectangleCollider(CollisionVolume::objectType::LADDER, nullptr, 2 * 10, 2 * 2 * 32);
-	ladder2a->SetBehaviour(CollisionVolume::behaviour::STATIC);
-	ladder2a->SetPosition(Vector2(32, 48 + 96));
-	physics->AddCollider(ladder2a);
-
-	CollisionVolume* ladder2b = new RectangleCollider(CollisionVolume::objectType::LADDER, nullptr, 2 * 10, 2 * 32);
-	ladder2b->SetBehaviour(CollisionVolume::behaviour::STATIC);
-	ladder2b->SetPosition(Vector2(368, 48 + 64));
-	physics->AddCollider(ladder2b);
-
-	CollisionVolume* ladder3a = new RectangleCollider(CollisionVolume::objectType::LADDER, nullptr, 2 * 10, 2 * 32);
-	ladder3a->SetBehaviour(CollisionVolume::behaviour::STATIC);
-	ladder3a->SetPosition(Vector2(192, 48 + 64 + 64));
-	physics->AddCollider(ladder3a);
-
-	CollisionVolume* ladder3b = new RectangleCollider(CollisionVolume::objectType::LADDER, nullptr, 2 * 10, 2 * 32);
-	ladder3b->SetBehaviour(CollisionVolume::behaviour::STATIC);
-	ladder3b->SetPosition(Vector2(304, 48 + 64 + 64));
-	physics->AddCollider(ladder3b);
-
-	CollisionVolume* ladder4a = new RectangleCollider(CollisionVolume::objectType::LADDER, nullptr, 2 * 10, 2 * 2 * 32);
-	ladder4a->SetBehaviour(CollisionVolume::behaviour::STATIC);
-	ladder4a->SetPosition(Vector2(432, 48 + 64 + 96));
-	physics->AddCollider(ladder4a);
-
-	CollisionVolume* ladder4b = new RectangleCollider(CollisionVolume::objectType::LADDER, nullptr, 2 * 10, 2 * 32);
-	ladder4b->SetBehaviour(CollisionVolume::behaviour::STATIC);
-	ladder4b->SetPosition(Vector2(96, 48 + 64 + 64 + 64));
-	physics->AddCollider(ladder4b);
+	
 
 }
 

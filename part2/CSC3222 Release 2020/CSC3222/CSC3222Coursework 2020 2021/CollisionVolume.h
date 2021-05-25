@@ -28,7 +28,8 @@ namespace NCL {
 				FRUIT,
 				LADDER,
 				WALL,
-				GROUND
+				GROUND,
+				BASE
 			};
 
 

@@ -7,6 +7,7 @@ namespace NCL {
 		class RigidBody	{
 			friend class GameSimsPhysics;
 		public:
+			
 			RigidBody();
 			~RigidBody();
 
@@ -49,11 +50,17 @@ namespace NCL {
 				damping = newdamping;
 			}
 
+			void SetToDeleteObject() {
+				deleteflag = true;
+			}
+
 		protected:
 			Vector2 position;
 			Vector2 velocity;
 			Vector2 force;
 
+			bool deleteflag = false;
+			
 			float inverseMass;
 			float elasticity;
 			float damping = 0.94f;

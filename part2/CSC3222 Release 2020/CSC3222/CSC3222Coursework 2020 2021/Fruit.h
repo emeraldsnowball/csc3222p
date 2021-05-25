@@ -9,6 +9,5 @@ namespace NCL::CSC3222 {
 		bool UpdateObject(float dt) override;
 
 	protected:
-
 	};
 }

@@ -70,7 +70,7 @@ PlayerCharacter::PlayerCharacter() : SimObject() {
 	animFrameCount		= 6;
 
 	//collider = new RectangleCollider(CollisionVolume::objectType::PLAYER, 10.0f, 12.0f);
-	collider = new CircleCollider(CollisionVolume::objectType::PLAYER, this, 12.0f);
+	collider = new CircleCollider(CollisionVolume::objectType::PLAYER, this, 14.0f);
 	collider->SetBehaviour(CollisionVolume::behaviour::DYNAMIC);
 	SetCollider(collider);
 	collider->SetPosition(position);
@@ -86,7 +86,8 @@ bool PlayerCharacter::UpdateObject(float dt) {
 	float testSpeed = 64;
 	Vector4* animSource = idleFrames;
 	Vector2 newVelocity;
-
+	AddForce(Vector2(0, -200));
+	//std::cout << canClimb;
 	if (currentAnimState == PlayerState::Attack) {
 		animSource = attackFrames;
 		if (currentanimFrame >= 5) {
@@ -99,14 +100,14 @@ bool PlayerCharacter::UpdateObject(float dt) {
 			animSource = runFrames;
 			currentAnimState = PlayerState::Left;
 			//newVelocity.x = -testSpeed * dt;
-			AddForce(Vector2(-1200, 0));
+			AddForce(Vector2(-1500, 0));
 			flipAnimFrame = true;
 		}
 		if (Window::GetKeyboard()->KeyDown(KeyboardKeys::RIGHT)) {
 			animSource = runFrames;
 			currentAnimState = PlayerState::Right;
 			//newVelocity.x = testSpeed * dt;
-			AddForce(Vector2(1200, 0));
+			AddForce(Vector2(1500, 0));
 			flipAnimFrame = false;
 		}	
 		if (game->magicCount > 0 && Window::GetKeyboard()->KeyPressed(KeyboardKeys::SPACE)) {
@@ -115,6 +116,18 @@ bool PlayerCharacter::UpdateObject(float dt) {
 			game->AddNewObject(new Spell(this->GetPosition())); // create spell on attack
 			game->magicCount--;
 		}
+		if (canClimb && Window::GetKeyboard()->KeyDown(KeyboardKeys::UP)) {
+			animSource = ladderFrames;
+			currentAnimState = PlayerState::Climb;
+			AddForce(Vector2(0, 1000));
+			flipAnimFrame = false;
+		}
+		if (canClimb && Window::GetKeyboard()->KeyDown(KeyboardKeys::DOWN)) {
+			animSource = ladderFrames;
+			currentAnimState = PlayerState::Climb;
+			AddForce(Vector2(0, -1000));
+			flipAnimFrame = true;
+		}
 	}
 
 	position += newVelocity;
@@ -122,6 +135,8 @@ bool PlayerCharacter::UpdateObject(float dt) {
 	collider->SetPosition(position);
 
 	animFrameData = animSource[currentanimFrame];
+
+	canClimb = (false);
 
 	return true;
 }

@@ -178,6 +178,31 @@ void FruitWizardGame::AddNewObject(SimObject* object) {
 
 bool FruitWizardGame::checkCollisionObject(CollisionPair* collisionData) {
 
+	if (collisionData->c1->GetType() == CollisionVolume::objectType::BASE && !(collisionData->c2->GetType() == CollisionVolume::objectType::PIXIE)) {
+		return true;
+	}
+
+	if (collisionData->c2->GetType() == CollisionVolume::objectType::BASE && !(collisionData->c1->GetType() == CollisionVolume::objectType::PIXIE)) {
+		return true;
+	}
+
+	if (collisionData->c1->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c2->GetType() == CollisionVolume::objectType::LADDER)) {
+		static_cast<PlayerCharacter*>(collisionData->o1)->canClimb = (true);
+		
+		return false;
+	}
+	if (collisionData->c2->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c1->GetType() == CollisionVolume::objectType::LADDER)) {
+		static_cast<PlayerCharacter*>(collisionData->o2)->canClimb = (true);
+		
+		return false;
+	}
+	if (collisionData->c1->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c2->GetType() == CollisionVolume::objectType::GROUND) && static_cast<PlayerCharacter*>(collisionData->o1)->canClimb && (Window::GetKeyboard()->KeyDown(KeyboardKeys::UP) || Window::GetKeyboard()->KeyDown(KeyboardKeys::DOWN))) {
+		return false;
+	}
+	if (collisionData->c2->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c1->GetType() == CollisionVolume::objectType::GROUND) && static_cast<PlayerCharacter*>(collisionData->o2)->canClimb && (Window::GetKeyboard()->KeyDown(KeyboardKeys::UP) || Window::GetKeyboard()->KeyDown(KeyboardKeys::DOWN))) {
+		return false;
+	}
+	
 	if (collisionData->c1->GetType() == CollisionVolume::objectType::WALL && !(collisionData->c2->GetType() == CollisionVolume::objectType::PIXIE)) {
 		return true;
 	}
@@ -192,6 +217,17 @@ bool FruitWizardGame::checkCollisionObject(CollisionPair* collisionData) {
 
 	if (collisionData->c2->GetType() == CollisionVolume::objectType::GROUND && !(collisionData->c1->GetType() == CollisionVolume::objectType::PIXIE)) {
 		return true;
+	}
+
+	if (collisionData->c1->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c2->GetType() == CollisionVolume::objectType::FRUIT)) {
+		collisionData->o2->SetToDeleteObject();
+		currentScore += 1000;
+		return false;
+	}
+	if (collisionData->c2->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c1->GetType() == CollisionVolume::objectType::FRUIT)) {
+		collisionData->o1->SetToDeleteObject();
+		currentScore += 1000;
+		return false;
 	}
 
 

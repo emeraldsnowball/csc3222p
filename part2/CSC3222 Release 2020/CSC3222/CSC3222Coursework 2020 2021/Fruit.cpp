@@ -23,6 +23,9 @@ Fruit::~Fruit() {
 }
 
 bool Fruit::UpdateObject(float dt) {
+	if (deleteflag) {
+		return false;
+	}
 	collider->SetPosition(position);
 	return true;
 }
