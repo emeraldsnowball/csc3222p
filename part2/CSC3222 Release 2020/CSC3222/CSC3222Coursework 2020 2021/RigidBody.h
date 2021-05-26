@@ -35,7 +35,7 @@ namespace NCL {
 
 				velocity += impulse * inverseMass;
 			}
-			/*
+			
 			void SetMass(float newMass) {
 				if (newMass == 0) {
 					inverseMass = 0;
@@ -45,7 +45,7 @@ namespace NCL {
 					inverseMass = 1 / newMass;
 				}
 			}
-			*/
+			
 			void SetDamping(float newdamping) {
 				damping = newdamping;
 			}

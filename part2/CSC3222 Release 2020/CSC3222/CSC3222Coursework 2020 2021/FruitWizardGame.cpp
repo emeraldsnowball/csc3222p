@@ -51,6 +51,7 @@ void FruitWizardGame::Update(float dt) {
 		(*i)->UpdateAnimFrame(dt);
 		if (!(*i)->UpdateObject(dt)) { //object has said its finished with
 			physics->RemoveCollider((*i)->GetCollider());
+			physics->RemoveRigidBody(*i);
 			delete (*i);
 			 i = gameObjects.erase(i);
 		}
@@ -142,10 +143,10 @@ void FruitWizardGame::InitialiseGame() {
 	//testSpell->SetPosition(Vector2(160, 48));
 	//AddNewObject(testSpell);
 
-	Fruit* testFruit = new Fruit();
+	//Fruit* testFruit = new Fruit();
 	//testFruit->SetPosition(Vector2(250, 150));
-	testFruit->SetPosition(Vector2(200, 22));
-	AddNewObject(testFruit);
+	//testFruit->SetPosition(Vector2(200, 22));
+	//AddNewObject(testFruit);
 
 	PixieDust* testDust = new PixieDust();
 	testDust->SetPosition(Vector2(285, 220));
@@ -161,6 +162,17 @@ void FruitWizardGame::InitialiseGame() {
 	//testFroggo->SetPosition(Vector2(370, 32));
 	AddNewObject(testFroggo);
 
+	srand(time(0));
+	float arrY[4] = {22, 86, 160, 278};
+	for (int i = 0; i < 16; i++) {
+		Fruit* temp = new Fruit();
+		float x = (float)(rand() % 320)+32;
+		//float y = arrY[(rand() % 4)];
+		float y = 22;
+		temp->SetPosition(Vector2(x, y));
+		AddNewObject(temp);
+	}
+	
 	gameTime		= 0;
 	currentScore	= 0;
 	magicCount		= 300;
@@ -186,13 +198,21 @@ bool FruitWizardGame::checkCollisionObject(CollisionPair* collisionData) {
 		return true;
 	}
 
+	if (collisionData->c1->GetType() == CollisionVolume::objectType::GROUND && (collisionData->c2->GetType() == CollisionVolume::objectType::FRUIT)) {
+		return true;
+	}
+
+	if (collisionData->c2->GetType() == CollisionVolume::objectType::GROUND && (collisionData->c1->GetType() == CollisionVolume::objectType::FRUIT)) {
+		return true;
+	}
+
 	if (collisionData->c1->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c2->GetType() == CollisionVolume::objectType::LADDER)) {
-		static_cast<PlayerCharacter*>(collisionData->o1)->canClimb = (true);
+		static_cast<PlayerCharacter*>(collisionData->o1)->SetClimb();
 		
 		return false;
 	}
 	if (collisionData->c2->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c1->GetType() == CollisionVolume::objectType::LADDER)) {
-		static_cast<PlayerCharacter*>(collisionData->o2)->canClimb = (true);
+		static_cast<PlayerCharacter*>(collisionData->o2)->SetClimb();
 		
 		return false;
 	}

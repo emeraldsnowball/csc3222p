@@ -23,6 +23,8 @@ Fruit::~Fruit() {
 }
 
 bool Fruit::UpdateObject(float dt) {
+	//AddForce(Vector2(0, -10));
+
 	if (deleteflag) {
 		return false;
 	}

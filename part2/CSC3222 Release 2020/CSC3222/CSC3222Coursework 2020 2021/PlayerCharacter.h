@@ -7,9 +7,12 @@ namespace NCL::CSC3222 {
 	public:
 		PlayerCharacter();
 		~PlayerCharacter();
-
+		float climbTimer;
 		bool canClimb = false;
-
+		void SetClimb() {
+			canClimb = true;
+			climbTimer = 0.0f;
+		}
 		bool UpdateObject(float dt) override;
 	protected:
 		enum class PlayerState {

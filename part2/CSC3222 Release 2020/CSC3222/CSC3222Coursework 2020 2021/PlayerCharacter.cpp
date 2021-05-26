@@ -70,12 +70,12 @@ PlayerCharacter::PlayerCharacter() : SimObject() {
 	animFrameCount		= 6;
 
 	//collider = new RectangleCollider(CollisionVolume::objectType::PLAYER, 10.0f, 12.0f);
-	collider = new CircleCollider(CollisionVolume::objectType::PLAYER, this, 14.0f);
+	collider = new CircleCollider(CollisionVolume::objectType::PLAYER, this, 13.0f);
 	collider->SetBehaviour(CollisionVolume::behaviour::DYNAMIC);
 	SetCollider(collider);
 	collider->SetPosition(position);
-
-	//SetMass(55);
+	SetDamping(0.96f);
+	SetMass(3);
 }
 
 PlayerCharacter::~PlayerCharacter() {
@@ -86,7 +86,7 @@ bool PlayerCharacter::UpdateObject(float dt) {
 	float testSpeed = 64;
 	Vector4* animSource = idleFrames;
 	Vector2 newVelocity;
-	AddForce(Vector2(0, -200));
+	AddForce(Vector2(0, -300));
 	//std::cout << canClimb;
 	if (currentAnimState == PlayerState::Attack) {
 		animSource = attackFrames;
@@ -129,14 +129,16 @@ bool PlayerCharacter::UpdateObject(float dt) {
 			flipAnimFrame = true;
 		}
 	}
-
+	
 	position += newVelocity;
 
 	collider->SetPosition(position);
 
 	animFrameData = animSource[currentanimFrame];
-
-	canClimb = (false);
+	climbTimer += dt;
+	if (climbTimer > 0.01f) {
+		canClimb = false;
+	}
 
 	return true;
 }
