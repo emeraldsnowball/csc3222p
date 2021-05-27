@@ -28,12 +28,12 @@ Vector4 explodeFrames[] = {
 	Vector4(512,416, 32, 32),	
 };
 
-Spell::Spell(Vector2 direction) : SimObject()	{
+Spell::Spell(Vector2 direction, bool direction1) : SimObject()	{
 	texture		= texManager->GetTexture("FruitWizard\\mini_fantasy_sprites_oga_ver.png");
 	velocity	= direction;
 	animFrameCount = 6;
 
-	timeSpawned = 0;
+	//timeSpawned = 0;
 
 	this->SetPosition(direction);
 
@@ -42,10 +42,18 @@ Spell::Spell(Vector2 direction) : SimObject()	{
 	SetCollider(collider);
 
 	collider->SetPosition(position);
+	//SetMass(10000.0f);
 	SetDamping(1.0f);
 	
-	AddImpulse(Vector2((rand() % 2== 0? 100 : -250), 0) + Vector2(0, (float)(rand() % 60 - 30))); // add impulse at time of creation
+	//AddImpulse(Vector2((rand() % 2== 0? 100 : -250), 0) + Vector2(0, (float)(rand() % 60 - 30))); // add impulse at time of creation
 	
+	if (!direction1) {
+		AddImpulse(Vector2(500, 0)); // add impulse at time of creation
+	}
+	else {
+		AddImpulse(Vector2(-500, 0)); // add impulse at time of creation
+	}
+
 }
 
 Spell::~Spell()	{
@@ -61,13 +69,22 @@ void Spell::DrawObject(GameSimsRenderer &r) {
 bool Spell::UpdateObject(float dt) {
 	animFrameData = explodeFrames[currentanimFrame];
 
-	timeSpawned += dt;
-	
+	//timeSpawned += dt;
+
+	if (deleteflag) {
+		return false;
+	}
+	/*
 	// remove spell 1 sec after spawn
 	if (timeSpawned > 1.0f) {
 		return false;
 	}
-	
+	*/
+
+	if (bounce < 1) {
+		return false;
+	}
+
 	collider->SetPosition(position);
 	return true;
 }

@@ -54,8 +54,8 @@ namespace NCL {
 				deleteflag = true;
 			}
 
-		protected:
 			Vector2 position;
+		protected:
 			Vector2 velocity;
 			Vector2 force;
 

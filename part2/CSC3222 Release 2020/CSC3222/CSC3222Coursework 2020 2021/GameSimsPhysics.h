@@ -35,7 +35,7 @@ namespace NCL {
 			std::vector<CollisionVolume*> GetAllColliders() {
 				return allColliders;
 			};
-			void CollisionResolution(CollisionPair*);
+			void CollisionResolution(CollisionPair*, float dt);
 			void Projection(CollisionPair*);
 			void Impulse(CollisionPair*);
 

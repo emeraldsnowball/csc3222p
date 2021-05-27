@@ -68,8 +68,8 @@ PlayerCharacter::PlayerCharacter() : SimObject() {
 	currentAnimState	= PlayerState::Left;
 	texture				= texManager->GetTexture("FruitWizard\\mini_fantasy_sprites_oga_ver.png");
 	animFrameCount		= 6;
+	climbTimer = 0;
 
-	//collider = new RectangleCollider(CollisionVolume::objectType::PLAYER, 10.0f, 12.0f);
 	collider = new CircleCollider(CollisionVolume::objectType::PLAYER, this, 13.0f);
 	collider->SetBehaviour(CollisionVolume::behaviour::DYNAMIC);
 	SetCollider(collider);
@@ -102,6 +102,7 @@ bool PlayerCharacter::UpdateObject(float dt) {
 			//newVelocity.x = -testSpeed * dt;
 			AddForce(Vector2(-1500, 0));
 			flipAnimFrame = true;
+			direction = true;
 		}
 		if (Window::GetKeyboard()->KeyDown(KeyboardKeys::RIGHT)) {
 			animSource = runFrames;
@@ -109,11 +110,12 @@ bool PlayerCharacter::UpdateObject(float dt) {
 			//newVelocity.x = testSpeed * dt;
 			AddForce(Vector2(1500, 0));
 			flipAnimFrame = false;
+			direction = false;
 		}	
 		if (game->magicCount > 0 && Window::GetKeyboard()->KeyPressed(KeyboardKeys::SPACE)) {
 			currentAnimState = PlayerState::Attack;
 			currentanimFrame = 0;
-			game->AddNewObject(new Spell(this->GetPosition())); // create spell on attack
+			game->AddNewObject(new Spell(this->GetPosition(), direction)); // create spell on attack
 			game->magicCount--;
 		}
 		if (canClimb && Window::GetKeyboard()->KeyDown(KeyboardKeys::UP)) {

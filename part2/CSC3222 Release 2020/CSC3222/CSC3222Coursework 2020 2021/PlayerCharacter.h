@@ -13,6 +13,7 @@ namespace NCL::CSC3222 {
 			canClimb = true;
 			climbTimer = 0.0f;
 		}
+		bool direction = true;
 		bool UpdateObject(float dt) override;
 	protected:
 		enum class PlayerState {

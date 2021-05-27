@@ -33,6 +33,15 @@ namespace NCL {
 			int GetMapHeight() const {
 				return mapHeight;
 			}
+
+			char CheckTile(Vector2 pos) {
+				int tileX = pos.x / 16;
+				int tileY = pos.y / 16;
+				int  tileType = mapData[(tileY * mapWidth) + tileX];
+				
+				return tileType;
+			}
+
 		protected:
 			void BuildMapMesh();
 			void AddMapColliders(GameSimsPhysics* physics);

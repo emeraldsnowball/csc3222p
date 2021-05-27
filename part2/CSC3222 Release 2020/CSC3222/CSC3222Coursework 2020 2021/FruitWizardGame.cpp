@@ -60,8 +60,17 @@ void FruitWizardGame::Update(float dt) {
 			++i;
 		}
 	}
-
+	
+	if (fruitCount == 0) {
+		currentScore += 5000;
+		fruitCount = 16;
+		guardCount += 1;
+		spawnFruit(16);
+		spawnGuard(1, player);
+	}
+	
 	// print all colliders
+	/*
 	for (CollisionVolume* collider : physics->GetAllColliders()) {
 		if (collider->shape == 'c') {
 			const CircleCollider* c = dynamic_cast<const CircleCollider*> (collider);
@@ -74,7 +83,7 @@ void FruitWizardGame::Update(float dt) {
 			renderer->DrawBox(collider->GetPosition(), Vector2(r->length()/2, r->width()/2), Vector4(0, 1, 1, 1));
 		}
 	}
-
+	*/
 
 	renderer->DrawString("Score:" + std::to_string(currentScore), 
 		Vector2(32, 12), Vector4(1,1,1,1), 100.0f);
@@ -134,10 +143,10 @@ void FruitWizardGame::InitialiseGame() {
 	player->SetPosition(Vector2(100, 32));
 	AddNewObject(player);
 
-	Guard* testGuard = new Guard();
-	testGuard->SetPosition(Vector2(150, 224));
+	//Guard* testGuard = new Guard();
+	//testGuard->SetPosition(Vector2(150, 224));
 	//testGuard->SetPosition(Vector2(200, 32));
-	AddNewObject(testGuard);
+	//AddNewObject(testGuard);
 
 	//Spell* testSpell = new Spell(Vector2(1,0));
 	//testSpell->SetPosition(Vector2(160, 48));
@@ -162,22 +171,14 @@ void FruitWizardGame::InitialiseGame() {
 	//testFroggo->SetPosition(Vector2(370, 32));
 	AddNewObject(testFroggo);
 
-	srand(time(0));
-	float arrY[4] = {22, 86, 160, 278};
-	for (int i = 0; i < 16; i++) {
-		Fruit* temp = new Fruit();
-		float x = (float)(rand() % 320)+32;
-		//float y = arrY[(rand() % 4)];
-		float y = 22;
-		temp->SetPosition(Vector2(x, y));
-		AddNewObject(temp);
-	}
-	
+	spawner(fruitCount, guardCount, player);
+
 	gameTime		= 0;
 	currentScore	= 0;
 	magicCount		= 300;
 	dustCount		= 0;
 	lives			= 3;
+	fruitCount = 16;
 }
 
 void FruitWizardGame::AddNewObject(SimObject* object) {
@@ -188,7 +189,8 @@ void FruitWizardGame::AddNewObject(SimObject* object) {
 	}
 }
 
-bool FruitWizardGame::checkCollisionObject(CollisionPair* collisionData) {
+bool FruitWizardGame::checkCollisionObject(CollisionPair* collisionData, float dt) {
+
 
 	if (collisionData->c1->GetType() == CollisionVolume::objectType::BASE && !(collisionData->c2->GetType() == CollisionVolume::objectType::PIXIE)) {
 		return true;
@@ -197,6 +199,8 @@ bool FruitWizardGame::checkCollisionObject(CollisionPair* collisionData) {
 	if (collisionData->c2->GetType() == CollisionVolume::objectType::BASE && !(collisionData->c1->GetType() == CollisionVolume::objectType::PIXIE)) {
 		return true;
 	}
+
+	
 
 	if (collisionData->c1->GetType() == CollisionVolume::objectType::GROUND && (collisionData->c2->GetType() == CollisionVolume::objectType::FRUIT)) {
 		return true;
@@ -222,6 +226,17 @@ bool FruitWizardGame::checkCollisionObject(CollisionPair* collisionData) {
 	if (collisionData->c2->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c1->GetType() == CollisionVolume::objectType::GROUND) && static_cast<PlayerCharacter*>(collisionData->o2)->canClimb && (Window::GetKeyboard()->KeyDown(KeyboardKeys::UP) || Window::GetKeyboard()->KeyDown(KeyboardKeys::DOWN))) {
 		return false;
 	}
+
+	if (collisionData->c1->GetType() == CollisionVolume::objectType::SPELL && ((collisionData->c2->GetType() == CollisionVolume::objectType::BASE) || (collisionData->c2->GetType() == CollisionVolume::objectType::GROUND) || (collisionData->c2->GetType() == CollisionVolume::objectType::WALL))) {
+		static_cast<Spell*>(collisionData->o1)->bounce--;
+		return true;
+	}
+
+	if (collisionData->c2->GetType() == CollisionVolume::objectType::SPELL && (collisionData->c1->GetType() == CollisionVolume::objectType::BASE) || (collisionData->c1->GetType() == CollisionVolume::objectType::GROUND) || (collisionData->c1->GetType() == CollisionVolume::objectType::WALL)) {
+		static_cast<Spell*>(collisionData->o2)->bounce--;
+		return true;
+	}
+
 	
 	if (collisionData->c1->GetType() == CollisionVolume::objectType::WALL && !(collisionData->c2->GetType() == CollisionVolume::objectType::PIXIE)) {
 		return true;
@@ -242,15 +257,65 @@ bool FruitWizardGame::checkCollisionObject(CollisionPair* collisionData) {
 	if (collisionData->c1->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c2->GetType() == CollisionVolume::objectType::FRUIT)) {
 		collisionData->o2->SetToDeleteObject();
 		currentScore += 1000;
+		fruitCount--;
 		return false;
 	}
 	if (collisionData->c2->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c1->GetType() == CollisionVolume::objectType::FRUIT)) {
 		collisionData->o1->SetToDeleteObject();
 		currentScore += 1000;
+		fruitCount--;
 		return false;
 	}
 
+	
 
+	if (collisionData->c1->GetType() == CollisionVolume::objectType::SPELL && (collisionData->c2->GetType() == CollisionVolume::objectType::GUARD)) {
+		collisionData->o1->SetToDeleteObject();
+		currentScore += 200;
+		static_cast<Guard*>(collisionData->o2)->Stunned(dt);
+		return false;
+	}
+	if (collisionData->c2->GetType() == CollisionVolume::objectType::SPELL && (collisionData->c1->GetType() == CollisionVolume::objectType::GUARD)) {
+		collisionData->o2->SetToDeleteObject();
+		currentScore += 200;
+		static_cast<Guard*>(collisionData->o1)->Stunned(dt);
+		return false;
+	}
+
+	if (collisionData->c1->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c2->GetType() == CollisionVolume::objectType::GUARD)) {
+		if (static_cast<Guard*>(collisionData->o2)->isStunned) {
+			return false;
+		}
+		
+		if (static_cast<Guard*>(collisionData->o2)->isAttack) {
+			for (Fruit* f : fruits) {
+				f->SetToDeleteObject();
+			}
+			for (Guard* g : guards) {
+				g->SetToDeleteObject();
+			}
+			player->SetPosition(Vector2(100, 32));
+			lives--;
+			spawner(fruitCount, guardCount, player);
+		}
+		return false;
+	}
+	if (collisionData->c2->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c1->GetType() == CollisionVolume::objectType::GUARD)) {
+		if (static_cast<Guard*>(collisionData->o1)->isAttack) {
+			for (Fruit* f : fruits) {
+				f->SetToDeleteObject();
+			}
+			for (Guard* g : guards) {
+				g->SetToDeleteObject();
+			}
+			player->SetPosition(Vector2(100, 32));
+			lives--;
+			spawner(fruitCount, guardCount, player);
+		}
+		return false;
+	}
+
+	
 
 	return false;
 }

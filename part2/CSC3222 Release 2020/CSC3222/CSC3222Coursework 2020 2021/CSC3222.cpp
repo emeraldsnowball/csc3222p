@@ -12,9 +12,16 @@ int main() {
 	}
 
 	FruitWizardGame* theGame = new FruitWizardGame();
+
+	
+
 	w->GetTimer()->GetTimeDeltaSeconds(); //Reset so we don't get a big dt in the first frame!
 	while (w->UpdateWindow() && !Window::GetKeyboard()->KeyDown(KeyboardKeys::ESCAPE)) {
 		float time = w->GetTimer()->GetTimeDeltaSeconds();
+
+		if (theGame->lives == 0) {
+			theGame = new FruitWizardGame();
+		}
 
 		if (time > 1.0f) {
 			continue; //Skip the timestep if it's huge!

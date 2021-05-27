@@ -109,7 +109,7 @@ void GameSimsPhysics::CollisionDetection(float dt) {
 
 				//print things here
 
-				CollisionResolution(&collisionData);
+				CollisionResolution(&collisionData, dt);
 				
 				/*
 				std::cout << "collision detected between: ";
@@ -195,8 +195,8 @@ void GameSimsPhysics::CollisionDetection(float dt) {
 
 }
 
-void GameSimsPhysics::CollisionResolution(CollisionPair* collisionData) {
-	if (game->checkCollisionObject(collisionData)) {
+void GameSimsPhysics::CollisionResolution(CollisionPair* collisionData, float dt) {
+	if (game->checkCollisionObject(collisionData, dt)) {
 		Projection(collisionData);
 		Impulse(collisionData);
 	}
