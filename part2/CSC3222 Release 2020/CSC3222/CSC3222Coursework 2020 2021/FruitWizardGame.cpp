@@ -82,7 +82,7 @@ void FruitWizardGame::Update(float dt) {
 
 
 	// print all colliders
-	
+	/*
 	for (CollisionVolume* collider : physics->GetAllColliders()) {
 		if (collider->shape == 'c') {
 			const CircleCollider* c = dynamic_cast<const CircleCollider*> (collider);
@@ -95,7 +95,7 @@ void FruitWizardGame::Update(float dt) {
 			renderer->DrawBox(collider->GetPosition(), Vector2(r->length()/2, r->width()/2), Vector4(0, 1, 1, 1));
 		}
 	}
-	
+	*/
 
 	renderer->DrawString("Score:" + std::to_string(currentScore), 
 		Vector2(32, 12), Vector4(1,1,1,1), 100.0f);
