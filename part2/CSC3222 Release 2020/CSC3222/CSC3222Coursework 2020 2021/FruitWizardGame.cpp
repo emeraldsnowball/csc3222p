@@ -69,8 +69,20 @@ void FruitWizardGame::Update(float dt) {
 		spawnGuard(1, player);
 	}
 	
+	// pixie dust spawn 30sec random
+	//
+	if ((int)gameTime > 0 && (int)gameTime % 30 == 0) {
+		if (dustCount < 4) {
+			if (rand() % 300 == 0) {
+				spawnDust(1);
+				dustCount++;
+			}
+		}
+	}
+
+
 	// print all colliders
-	/*
+	
 	for (CollisionVolume* collider : physics->GetAllColliders()) {
 		if (collider->shape == 'c') {
 			const CircleCollider* c = dynamic_cast<const CircleCollider*> (collider);
@@ -83,7 +95,7 @@ void FruitWizardGame::Update(float dt) {
 			renderer->DrawBox(collider->GetPosition(), Vector2(r->length()/2, r->width()/2), Vector4(0, 1, 1, 1));
 		}
 	}
-	*/
+	
 
 	renderer->DrawString("Score:" + std::to_string(currentScore), 
 		Vector2(32, 12), Vector4(1,1,1,1), 100.0f);
@@ -143,28 +155,17 @@ void FruitWizardGame::InitialiseGame() {
 	player->SetPosition(Vector2(100, 32));
 	AddNewObject(player);
 
-	//Guard* testGuard = new Guard();
-	//testGuard->SetPosition(Vector2(150, 224));
-	//testGuard->SetPosition(Vector2(200, 32));
-	//AddNewObject(testGuard);
+	//spawnPixie(8, player);
 
-	//Spell* testSpell = new Spell(Vector2(1,0));
-	//testSpell->SetPosition(Vector2(160, 48));
-	//AddNewObject(testSpell);
+	//PixieDust* testDust = new PixieDust();
+	//testDust->SetPosition(Vector2(285, 220));
+	//AddNewObject(testDust);
 
-	//Fruit* testFruit = new Fruit();
-	//testFruit->SetPosition(Vector2(250, 150));
-	//testFruit->SetPosition(Vector2(200, 22));
-	//AddNewObject(testFruit);
-
-	PixieDust* testDust = new PixieDust();
-	testDust->SetPosition(Vector2(285, 220));
-	AddNewObject(testDust);
-
-	Pixie* pixie = new Pixie();
-	pixie->SetPosition(Vector2(50, 96 - 64));
-	pixie->SetSpringTarget(*player);
-	AddNewObject(pixie);
+	//Pixie* pixie = new Pixie();
+	//pixie->SetPosition(Vector2(50, 96 - 64));
+	//pixie->SetPosition(Vector2(370, 285));
+	//pixie->SetSpringTarget(*player);
+	//AddNewObject(pixie);
 
 	Froggo* testFroggo = new Froggo();
 	testFroggo->SetPosition(Vector2(370, 285));
@@ -175,7 +176,7 @@ void FruitWizardGame::InitialiseGame() {
 
 	gameTime		= 0;
 	currentScore	= 0;
-	magicCount		= 300;
+	magicCount		= 3;
 	dustCount		= 0;
 	lives			= 3;
 	fruitCount = 16;
@@ -200,15 +201,6 @@ bool FruitWizardGame::checkCollisionObject(CollisionPair* collisionData, float d
 		return true;
 	}
 
-	
-
-	if (collisionData->c1->GetType() == CollisionVolume::objectType::GROUND && (collisionData->c2->GetType() == CollisionVolume::objectType::FRUIT)) {
-		return true;
-	}
-
-	if (collisionData->c2->GetType() == CollisionVolume::objectType::GROUND && (collisionData->c1->GetType() == CollisionVolume::objectType::FRUIT)) {
-		return true;
-	}
 
 	if (collisionData->c1->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c2->GetType() == CollisionVolume::objectType::LADDER)) {
 		static_cast<PlayerCharacter*>(collisionData->o1)->SetClimb();
@@ -253,6 +245,19 @@ bool FruitWizardGame::checkCollisionObject(CollisionPair* collisionData, float d
 	if (collisionData->c2->GetType() == CollisionVolume::objectType::GROUND && !(collisionData->c1->GetType() == CollisionVolume::objectType::PIXIE)) {
 		return true;
 	}
+	if (collisionData->c1->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c2->GetType() == CollisionVolume::objectType::PIXIEDUST)) {
+		collisionData->o2->SetToDeleteObject();
+		pixieCollect++;
+		currentScore += 500;
+		return false;
+	}
+
+	if (collisionData->c2->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c1->GetType() == CollisionVolume::objectType::PIXIEDUST)) {
+		collisionData->o1->SetToDeleteObject();
+		pixieCollect++;
+		currentScore += 500;
+		return false;
+	}
 
 	if (collisionData->c1->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c2->GetType() == CollisionVolume::objectType::FRUIT)) {
 		collisionData->o2->SetToDeleteObject();
@@ -264,6 +269,19 @@ bool FruitWizardGame::checkCollisionObject(CollisionPair* collisionData, float d
 		collisionData->o1->SetToDeleteObject();
 		currentScore += 1000;
 		fruitCount--;
+		return false;
+	}
+
+	if (collisionData->c1->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c2->GetType() == CollisionVolume::objectType::PIXIE)) {
+		collisionData->o2->SetToDeleteObject();
+		currentScore += 1000;
+		magicCount++;
+		return false;
+	}
+	if (collisionData->c2->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c1->GetType() == CollisionVolume::objectType::PIXIE)) {
+		collisionData->o1->SetToDeleteObject();
+		currentScore += 1000;
+		magicCount++;
 		return false;
 	}
 
@@ -301,6 +319,10 @@ bool FruitWizardGame::checkCollisionObject(CollisionPair* collisionData, float d
 		return false;
 	}
 	if (collisionData->c2->GetType() == CollisionVolume::objectType::PLAYER && (collisionData->c1->GetType() == CollisionVolume::objectType::GUARD)) {
+		if (static_cast<Guard*>(collisionData->o2)->isStunned) {
+			return false;
+		}
+		
 		if (static_cast<Guard*>(collisionData->o1)->isAttack) {
 			for (Fruit* f : fruits) {
 				f->SetToDeleteObject();
@@ -314,8 +336,6 @@ bool FruitWizardGame::checkCollisionObject(CollisionPair* collisionData, float d
 		}
 		return false;
 	}
-
 	
-
 	return false;
 }

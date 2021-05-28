@@ -2,6 +2,7 @@
 #include "TextureManager.h"
 #include "GameSimsRenderer.h"
 #include "FruitWizardGame.h"
+#include <vector>
 
 using namespace NCL;
 using namespace CSC3222;
@@ -30,8 +31,22 @@ Pixie::~Pixie() {
 
 bool Pixie::UpdateObject(float dt) {
 	animFrameData = pixieFrames[currentanimFrame];
-
+	if (deleteflag) {
+		return false;
+	}
 	UpdateSprings();
 	collider->SetPosition(position);
+
+	
+	Vector2 dir;
+
+	dir += Separation(game->getPixies());
+	dir += Cohesion(game->getPixies());
+	dir += Avoidance(game->getGuards());
+
+	this->position += dir * dt;
+
+	
+
 	return true;
 }

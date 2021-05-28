@@ -51,7 +51,7 @@ void SimObject::SetSpringTarget(RigidBody& obj) {
 
 void SimObject::UpdateSprings() {
 	const float c = 1;
-	const float snappiness = 2;
+	const float snappiness = 0.5;
 	const float restingLength = 24;
 
 	Vector2 lhs_vel = this->GetVelocity();

@@ -87,7 +87,7 @@ bool PlayerCharacter::UpdateObject(float dt) {
 	Vector4* animSource = idleFrames;
 	Vector2 newVelocity;
 	AddForce(Vector2(0, -300));
-	//std::cout << canClimb;
+	
 	if (currentAnimState == PlayerState::Attack) {
 		animSource = attackFrames;
 		if (currentanimFrame >= 5) {
@@ -130,6 +130,12 @@ bool PlayerCharacter::UpdateObject(float dt) {
 			AddForce(Vector2(0, -1000));
 			flipAnimFrame = true;
 		}
+		
+		if (game->pixieCollect > 3 && Window::GetKeyboard()->KeyPressed(KeyboardKeys::CONTROL)) {
+			game->spawnPixie(8, this);
+			game->pixieCollect = 0;
+		}
+		
 	}
 	
 	position += newVelocity;

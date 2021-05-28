@@ -108,7 +108,7 @@ bool Guard::UpdateObject(float dt) {
 	}
 	if (currentAnimState == GuardState::Stunned) {
 		animFrameData = guardStunFrames[currentanimFrame];
-		AddForce(Vector2(0, -10));
+		//AddForce(Vector2(0, -5));
 
 	}
 	if (currentAnimState == GuardState::Attack && !isStunned) {
